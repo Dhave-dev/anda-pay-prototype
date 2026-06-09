@@ -4,9 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Anda Pay — Onboarding Prototype</title>
-<link href="https://fonts.bunny.net/css?family=gilroy:400,500,600,700,800" rel="stylesheet">
 <style>
+@font-face { font-family: 'Gilroy'; src: url('Assets/Gilroy-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Gilroy'; src: url('Assets/Gilroy-Regular.ttf') format('truetype'); font-weight: 500; font-style: normal; }
+@font-face { font-family: 'Gilroy'; src: url('Assets/Gilroy-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; }
+@font-face { font-family: 'Gilroy'; src: url('Assets/Gilroy-SemiBold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Gilroy'; src: url('Assets/Gilroy-SemiBold.ttf') format('truetype'); font-weight: 800; font-style: normal; }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+::-webkit-scrollbar{display:none;}
+*{scrollbar-width:none;-ms-overflow-style:none;}
 body{
   background:#0a0a10;
   background-image:
@@ -274,7 +280,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 .role-desc{font-size:14px;font-weight:500;color:#575757;letter-spacing:-.14px;line-height:20px;font-family:'Gilroy',sans-serif;}
 .role-footer{
   position:absolute;bottom:64px;left:50%;transform:translateX(-50%);
-  font-size:16px;font-weight:500;color:#1d1e25;
+  font-size:16px;font-weight:500;color:#1d1e25;line-height:24px;
   letter-spacing:-.24px;white-space:nowrap;font-family:'Gilroy',sans-serif;
 }
 .role-footer u{font-weight:600;}
@@ -356,26 +362,27 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
   background:#fff;
 }
 .otp-box.active{
-  border:none;
-  box-shadow:0 1px 2px rgba(120,80,251,.5),0 0 0 1px #7850fb,0 0 0 2px #f7f6fa,0 0 0 3px rgba(120,80,251,.5);
+  border:1.5px solid #7850fb;
+  box-shadow:0 0 0 1.5px #f7f6fa, 0 0 0 3px #bfa0fe;
 }
 .otp-box.filled{border-color:#d4d4d4;}
 .otp-resend{font-size:16px;font-weight:500;color:#575757;text-align:center;font-family:'Gilroy',sans-serif;}
 .otp-resend u{color:#1d1e25;font-weight:600;cursor:pointer;}
-.otp-keyboard-wrap{width:375px;background:#f7f6fa;padding:12px 10px 0;flex-shrink:0;}
-.otp-key-row{display:flex;gap:7px;justify-content:center;margin-bottom:7px;}
+.otp-keyboard-wrap{width:375px;background:#f7f6fa;padding:12px 8px 20px;flex-shrink:0;}
+.otp-key-row{display:flex;gap:8px;justify-content:center;margin-bottom:8px;padding:0 8px;}
 .otp-key{
-  width:84px;height:42px;border-radius:100px;background:#e6e3fa;border:none;
+  flex:1;height:48px;border-radius:24px;background:#e6e3fa;border:none;
   display:flex;align-items:center;justify-content:center;
-  font-size:19px;font-weight:400;color:#1d1b20;
+  font-size:22px;font-weight:500;color:#1d1b20;
   cursor:pointer;transition:background .12s,transform .1s;
   font-family:'Gilroy',sans-serif;
 }
 .otp-key:hover{background:#d4d0f5;}
 .otp-key:active{transform:scale(.94);background:#c5c0f0;}
-.otp-key.del{background:#efb8c8;}
+.otp-key.del{background:#f3c4d2;}
 .otp-key.del:hover{background:#e8a0b8;}
-.otp-key.empty{background:transparent;pointer-events:none;}
+.otp-key.send{background:#d0b8ff;}
+.otp-key.send:hover{background:#bfa0fe;}
 .otp-homebar{height:34px;width:375px;flex-shrink:0;position:relative;}
 .otp-homebar-line{
   position:absolute;left:50%;transform:translateX(-50%);
@@ -403,10 +410,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 }
 .main-card-bg-pattern{
   position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 120% 100% at 110% 50%,rgba(255,255,255,.08),transparent 60%),
-    radial-gradient(ellipse 60% 80% at -10% 50%,rgba(0,0,0,.04),transparent 60%);
-  mix-blend-mode:luminosity;
+  background: url('Assets/Main Card.svg') center/cover no-repeat;
 }
 .main-card-label{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.14px;margin-bottom:17px;position:relative;font-family:'Gilroy',sans-serif;}
 .main-card-amounts{display:flex;align-items:flex-end;justify-content:space-between;color:#fff;margin-bottom:12px;position:relative;}
@@ -484,7 +488,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 }
 .back-btn{
   position:absolute;left:16px;
-  width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(29,30,37,.12);
+  width:40px;height:40px;border:none;
   background:transparent;display:flex;align-items:center;justify-content:center;
   cursor:pointer;transition:background .18s;
 }
@@ -516,9 +520,9 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 .np-si-clear{width:24px;height:24px;border:none;background:transparent;padding:0;cursor:pointer;display:none;flex-shrink:0;align-items:center;justify-content:center;}
 .np-si-clear.show{display:flex;}
 .np-count-row{display:flex;align-items:baseline;gap:8px;margin:14px 0 8px;flex-shrink:0;}
-.np-count-lbl{font-size:18px;font-weight:700;color:#111827;letter-spacing:-.27px;font-family:'Gilroy',sans-serif;}
-.np-count-lbl.recent{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#aaa;}
-.np-drv-list-inner{display:flex;flex-direction:column;gap:6px;}
+.np-count-lbl{font-size:18px;font-weight:600;color:#1d1e25;letter-spacing:-.27px;font-family:'Gilroy',sans-serif;}
+.np-count-lbl.recent{}
+.np-drv-list-inner{display:flex;flex-direction:column;gap:10px;}
 mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .np-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px;gap:12px;flex:1;}
 .np-empty-title{font-size:16px;font-weight:700;color:#1d1e25;font-family:'Gilroy',sans-serif;}
@@ -532,10 +536,10 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .drv-info{flex:1;}
 .drv-name{font-size:15px;font-weight:600;color:#1d1e25;letter-spacing:-.22px;font-family:'Gilroy',sans-serif;line-height:22px;}
 .drv-meta{font-size:12px;font-weight:500;color:#575757;font-family:'Gilroy',sans-serif;}
-.scan-qr-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:225px;height:56px;background:#1d1e25;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap;}
+.scan-qr-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:240px;height:56px;background:#1d1e25;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap;z-index:20;}
 .scan-qr-btn:hover{background:#2a2b35;}
 .scan-qr-btn:active{transform:translateX(-50%) scale(.97);}
-.scan-qr-btn span{font-size:15px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;}
+.scan-qr-btn span{font-size:16px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;}
 
 /* ── 7. QR SCAN ── */
 #screen-qr-scan{background:#111;overflow:hidden;}
@@ -544,12 +548,10 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .qr-heading{position:absolute;top:148px;left:0;width:375px;text-align:center;z-index:5;padding:0 60px;}
 .qr-title{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.4px;font-family:'Gilroy',sans-serif;line-height:1.2;}
 .qr-sub{font-size:14px;font-weight:500;color:rgba(255,255,255,.65);margin-top:6px;font-family:'Gilroy',sans-serif;}
-.qr-frame{position:absolute;top:264px;left:54px;width:267px;height:287px;z-index:4;}
-.qr-frame-bg{position:absolute;inset:0;background:#222;border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.qr-frame-bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.03) 3px,rgba(255,255,255,.03) 4px);}
-.qr-corner{position:absolute;width:40px;height:40px;}
-.qr-corner.tl{top:-1px;left:-1px;border-top:4px solid #fff;border-left:4px solid #fff;border-radius:10px 0 0 0;}
-.qr-corner.tr{top:-1px;right:-1px;border-top:4px solid #fff;border-right:4px solid #fff;border-radius:0 10px 0 0;}
+.qr-frame{position:absolute;top:230px;left:40px;width:295px;height:295px;z-index:4;}
+.qr-frame-bg{position:absolute;inset:0;background:#fff;border-radius:24px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:12px;}
+.qr-scan-line{position:absolute;top:0;left:0;width:100%;height:50%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.95));animation:scanAnim 2s infinite alternate ease-in-out;z-index:5;}
+@keyframes scanAnim{0%{transform:translateY(0);}100%{transform:translateY(100%);}}
 .qr-corner.bl{bottom:-1px;left:-1px;border-bottom:4px solid #fff;border-left:4px solid #fff;border-radius:0 0 0 10px;}
 .qr-corner.br{bottom:-1px;right:-1px;border-bottom:4px solid #fff;border-right:4px solid #fff;border-radius:0 0 10px 0;}
 .qr-invalid-ring{position:absolute;inset:-2px;border:3px solid #e53935;border-radius:17px;display:none;z-index:5;}
@@ -670,7 +672,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .ts-share:hover{background:rgba(0,0,0,.03);}
 
 /* ── Main Tabs shared ── */
-.tab-page-title{font-size:28px;font-weight:700;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;line-height:1.1;margin-bottom:14px;}
+.tab-page-title{font-size:28px;font-weight:600;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;line-height:1.1;margin-bottom:14px;}
 .tab-bottom-nav{
   position:absolute;bottom:0;left:0;width:375px;
   background:#fff;
@@ -731,7 +733,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .empty-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;width:290px;}
 .empty-icon-bg{width:68px;height:68px;border-radius:50%;background:#ebebeb;display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
 .empty-h{font-size:18px;font-weight:700;color:#1d1e25;letter-spacing:-.27px;font-family:'Gilroy',sans-serif;}
-.empty-p{font-size:14px;font-weight:500;color:#aaa;letter-spacing:-.14px;font-family:'Gilroy',sans-serif;line-height:1.5;}
+.empty-p{font-size:14px;font-weight:500;color:#575757;letter-spacing:-.14px;font-family:'Gilroy',sans-serif;line-height:1.5;}
 
 /* Settings screen */
 #screen-tab-settings{background:#f7f6fa;}
@@ -1147,57 +1149,90 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
               <div class="role-card" onclick="goTo('signin')">
                 <div class="role-icon-wrap">
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="24" r="24" fill="#e8f7f8"/>
-                    <circle cx="24" cy="18" r="6" fill="#0095a1" opacity=".9"/>
-                    <path d="M12 38c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="#0095a1" stroke-width="2.5" stroke-linecap="round" fill="none" opacity=".7"/>
-                    <circle cx="30" cy="28" r="5" fill="#fff" stroke="#0095a1" stroke-width="1.5"/>
-                    <path d="M28 27.5c1-1 2.5-.8 3 .5M30 30v1.5" stroke="#0095a1" stroke-width="1.2" stroke-linecap="round"/>
-                    <circle cx="30" cy="33" r="1" fill="#0095a1"/>
+                    <g transform="translate(0,0)">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4794 23.221C14.8257 23.221 13.4832 21.8784 13.4832 20.2247C13.4832 18.571 14.8257 17.2285 16.4794 17.2285H31.4606C33.1143 17.2285 34.457 18.571 34.457 20.2247C34.457 21.8784 33.1143 23.221 31.4606 23.221H16.4794Z" fill="url(#agent_g0)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M14.9814 17.2285C14.9814 14.9812 14.8416 13.4324 15.2031 11.9485C14.184 11.4121 13.7028 10.3606 14.2324 9.73778C15.9014 7.7749 19.4757 5.99243 23.9702 5.99243C26.7708 5.99243 29.2923 6.2683 29.9627 8.23967C33.4684 9.12618 32.9589 14.2323 32.9589 17.2285C32.9589 18.3786 31.4608 20.2247 31.4608 20.2247H16.4795C16.4795 20.2247 14.9814 18.3795 14.9814 17.2285Z" fill="black"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1989 17.2285C15.1989 14.9812 15.0591 13.4324 15.4206 11.9485C14.4015 11.4121 13.9203 10.3606 14.4499 9.73778C16.1189 7.7749 19.6933 5.99243 24.1877 5.99243C26.9883 5.99243 29.5098 6.2683 30.1802 8.23967C33.6859 9.12618 33.1764 14.2323 33.1764 17.2285C33.1764 18.3786 31.6783 20.2247 31.6783 20.2247H16.697C16.697 20.2247 15.1989 18.3795 15.1989 17.2285Z" fill="url(#agent_g1)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2137 32.2097L28.4646 27.7154L27.7156 24.719H20.2249L19.4758 27.7154L18.7268 32.2097C18.7268 32.2097 22.2224 40.4494 23.9703 40.4494C25.7181 40.4494 29.2137 32.2097 29.2137 32.2097Z" fill="url(#agent_g2)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M37.3882 35.8464C36.7226 34.7372 35.7812 33.8193 34.6556 33.182C33.53 32.5447 32.2585 32.2097 30.965 32.2097H29.2136C29.2136 32.2097 27.7155 36.7041 23.9042 36.7041C20.0931 36.7041 18.7267 32.2097 18.7267 32.2097H16.9753C15.6817 32.2097 14.4103 32.5447 13.2847 33.182C12.1591 33.8193 11.2177 34.7372 10.5522 35.8464L8.71534 38.9079C8.44264 39.3625 8.29545 39.8814 8.28881 40.4116C8.28216 40.9417 8.4163 41.4641 8.67752 41.9255C8.93873 42.3869 9.31769 42.7707 9.7757 43.0377C10.2337 43.3048 10.7544 43.4455 11.2846 43.4456H36.6557C37.1859 43.4457 37.7067 43.3051 38.1648 43.0381C38.623 42.7711 39.002 42.3873 39.2633 41.9258C39.5246 41.4644 39.6587 40.9419 39.6519 40.4117C39.6452 39.8815 39.4979 39.3625 39.225 38.9079L37.3882 35.8464Z" fill="url(#agent_g3)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4795 20.9739V16.4794C16.4795 16.4794 18.0969 13.7895 19.4757 13.4832C21.723 12.9838 26.2173 12.9838 28.4645 13.4832C29.8433 13.7895 31.4607 16.4794 31.4607 16.4794V20.9739C31.4607 25.5215 26.9664 29.2136 23.9702 29.2136C20.974 29.2136 16.4795 25.5215 16.4795 20.9739Z" fill="url(#agent_g4)"/>
+                    </g>
+                    <defs>
+                      <linearGradient id="agent_g0" x1="20.8089" y1="17.368" x2="21.0354" y2="23.332" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="agent_g1" x1="16.4796" y1="6.74156" x2="27.7155" y2="18.7266" gradientUnits="userSpaceOnUse"><stop/><stop offset="1"/></linearGradient>
+                      <linearGradient id="agent_g2" x1="22.3897" y1="25.0853" x2="25.3954" y2="40.1643" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="agent_g3" x1="8.28857" y1="37.8277" x2="39.6522" y2="37.8277" gradientUnits="userSpaceOnUse"><stop stop-color="#F7F4FF"/><stop offset="1" stop-color="#008A95"/></linearGradient>
+                      <linearGradient id="agent_g4" x1="21.7122" y1="13.4836" x2="23.9594" y2="29.2141" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                    </defs>
                   </svg>
                 </div>
                 <div class="role-info">
                   <div class="role-name">Agent</div>
                   <div class="role-desc">Field agent · collects payments</div>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8.91003 19.92L15.43 13.4C16.2 12.63 16.2 11.37 15.43 10.6L8.91003 4.08002" stroke="#1D1E25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <!-- Admin -->
               <div class="role-card" onclick="goTo('signin')">
                 <div class="role-icon-wrap">
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="24" r="24" fill="#eef0fa"/>
-                    <rect x="14" y="20" width="20" height="14" rx="3" fill="#6b7bcc" opacity=".25"/>
-                    <rect x="16" y="22" width="16" height="10" rx="2" fill="#6b7bcc" opacity=".5"/>
-                    <circle cx="24" cy="17" r="5" fill="#6b7bcc" opacity=".9"/>
-                    <path d="M20 27h8M20 30h5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
-                    <rect x="10" y="32" width="28" height="2" rx="1" fill="#6b7bcc" opacity=".3"/>
+                    <g transform="translate(0,0)">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M39.7004 21.7228V20.9738C39.7003 17.0006 38.1219 13.19 35.3124 10.3805C32.5029 7.57097 28.6924 5.99254 24.7191 5.99243H23.221C19.2477 5.99247 15.4372 7.57088 12.6276 10.3804C9.81812 13.19 8.23975 17.0005 8.23975 20.9738V21.7228L12.159 22.4403L12.1021 20.0403C12.9195 14.2178 17.9208 9.73778 23.9686 9.73778H23.9701C29.9665 9.73778 34.9344 14.1415 35.816 19.8911L35.8538 22.4571L39.7004 21.7228Z" fill="url(#admin_g0)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9664 40.4494H35.2061C36.5967 40.4494 37.9304 39.897 38.9137 38.9136C39.8971 37.9303 40.4495 36.5966 40.4496 35.206V33.7079C40.4494 33.5092 40.3705 33.3187 40.23 33.1783C40.0896 33.0378 39.8991 32.9588 39.7004 32.9587C39.5018 32.9588 39.3113 33.0378 39.1709 33.1783C39.0304 33.3187 38.9515 33.5092 38.9514 33.7079V35.206C38.9514 36.1993 38.5568 37.1519 37.8544 37.8543C37.152 38.5566 36.1994 38.9513 35.2061 38.9513H26.9664C26.7678 38.9514 26.5773 39.0303 26.4368 39.1708C26.2964 39.3112 26.2174 39.5017 26.2173 39.7003C26.2174 39.899 26.2964 40.0894 26.4368 40.2299C26.5773 40.3704 26.7678 40.4493 26.9664 40.4494Z" fill="url(#admin_g1)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M37.4534 21.7229H39.7005C40.6938 21.7229 41.6464 22.1175 42.3488 22.8199C43.0512 23.5223 43.4458 24.4749 43.4458 25.4683V29.9626C43.4459 30.4544 43.349 30.9415 43.1608 31.3959C42.9726 31.8504 42.6967 32.2633 42.3489 32.6111C42.0011 32.9589 41.5882 33.2347 41.1338 33.4229C40.6794 33.6111 40.1923 33.708 39.7005 33.7079H37.4534V21.7229Z" fill="url(#admin_g2)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.487 21.7229H8.23973C7.24644 21.723 6.29386 22.1176 5.59149 22.82C4.88912 23.5224 4.49449 24.475 4.49438 25.4683V29.9626C4.49446 30.9559 4.88908 31.9085 5.59145 32.6109C6.29382 33.3132 7.24643 33.7079 8.23973 33.7079H10.487V21.7229Z" fill="url(#admin_g3)"/>
+                      <path d="M25.4682 41.9476C26.7093 41.9476 27.7154 40.9415 27.7154 39.7004C27.7154 38.4592 26.7093 37.4531 25.4682 37.4531C24.2271 37.4531 23.2209 38.4592 23.2209 39.7004C23.2209 40.9415 24.2271 41.9476 25.4682 41.9476Z" fill="url(#admin_g4)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M37.4534 21.7227C37.4534 21.526 37.4146 21.3312 37.3393 21.1494C37.264 20.9677 37.1537 20.8025 37.0146 20.6634C36.8755 20.5243 36.7103 20.4139 36.5285 20.3386C36.3468 20.2634 36.152 20.2246 35.9552 20.2246H35.2061C34.8088 20.2246 34.4278 20.3825 34.1467 20.6634C33.8659 20.9444 33.708 21.3254 33.708 21.7227V33.7078C33.708 34.1051 33.8659 34.4861 34.1467 34.7671C34.4278 35.048 34.8088 35.2058 35.2061 35.2059H35.9552C36.152 35.2059 36.3468 35.1671 36.5286 35.0919C36.7103 35.0166 36.8755 34.9062 37.0146 34.7671C37.1537 34.628 37.2641 34.4628 37.3394 34.2811C37.4146 34.0993 37.4534 33.9045 37.4534 33.7078V21.7227Z" fill="url(#admin_g5)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4871 21.7227C10.487 21.526 10.5258 21.3312 10.6011 21.1494C10.6763 20.9676 10.7867 20.8025 10.9258 20.6634C11.0649 20.5242 11.2301 20.4139 11.4118 20.3386C11.5936 20.2633 11.7884 20.2246 11.9852 20.2246H12.7342C13.1315 20.2247 13.5125 20.3826 13.7934 20.6635C14.0744 20.9444 14.2323 21.3254 14.2324 21.7227V33.7078C14.2324 33.9045 14.1937 34.0993 14.1184 34.2811C14.0431 34.4629 13.9327 34.628 13.7936 34.7671C13.6544 34.9062 13.4893 35.0166 13.3075 35.0919C13.1257 35.1671 12.9309 35.2059 12.7342 35.2059H11.9852C11.7884 35.2059 11.5936 35.1671 11.4118 35.0919C11.2301 35.0166 11.0649 34.9062 10.9258 34.7671C10.7867 34.628 10.6763 34.4628 10.6011 34.2811C10.5258 34.0993 10.487 33.9045 10.4871 33.7078V21.7227Z" fill="url(#admin_g6)"/>
+                    </g>
+                    <defs>
+                      <linearGradient id="admin_g0" x1="8.23975" y1="14.2248" x2="39.7004" y2="14.2248" gradientUnits="userSpaceOnUse"><stop stop-color="#F7F4FF"/><stop offset="1" stop-color="#008A95"/></linearGradient>
+                      <linearGradient id="admin_g1" x1="31.1884" y1="33.1332" x2="31.708" y2="40.5626" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="admin_g2" x1="39.5464" y1="22.002" x2="42.5118" y2="33.1591" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="admin_g3" x1="6.58749" y1="22.002" x2="9.55276" y2="33.1591" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="admin_g4" x1="25.2711" y1="38.1895" x2="25.2711" y2="48.0496" gradientUnits="userSpaceOnUse"><stop stop-color="#DCEAF3"/><stop offset="1" stop-color="#97B7CE"/></linearGradient>
+                      <linearGradient id="admin_g5" x1="35.4164" y1="22.6791" x2="35.4164" y2="55.5454" gradientUnits="userSpaceOnUse"><stop stop-color="#DCEAF3"/><stop offset="1" stop-color="#97B7CE"/></linearGradient>
+                      <linearGradient id="admin_g6" x1="12.1955" y1="22.6791" x2="12.1955" y2="55.5454" gradientUnits="userSpaceOnUse"><stop stop-color="#DCEAF3"/><stop offset="1" stop-color="#97B7CE"/></linearGradient>
+                    </defs>
                   </svg>
                 </div>
                 <div class="role-info">
                   <div class="role-name">Admin</div>
                   <div class="role-desc">Back-office · monitor &amp; approve</div>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8.91003 19.92L15.43 13.4C16.2 12.63 16.2 11.37 15.43 10.6L8.91003 4.08002" stroke="#1D1E25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <!-- Beneficiary -->
               <div class="role-card" onclick="goTo('signin')">
                 <div class="role-icon-wrap">
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="24" r="24" fill="#e8f7f8"/>
-                    <rect x="10" y="26" width="28" height="10" rx="5" fill="#0095a1" opacity=".2"/>
-                    <rect x="12" y="27" width="24" height="8" rx="4" fill="#0095a1" opacity=".35"/>
-                    <circle cx="14" cy="36" r="3" fill="#0095a1" opacity=".8"/>
-                    <circle cx="34" cy="36" r="3" fill="#0095a1" opacity=".8"/>
-                    <rect x="14" y="22" width="8" height="6" rx="2" fill="#0095a1" opacity=".6"/>
-                    <rect x="26" y="24" width="8" height="4" rx="2" fill="#0095a1" opacity=".4"/>
-                    <rect x="10" y="28" width="6" height="4" rx="1" fill="#fff" opacity=".5"/>
+                    <g transform="translate(0,0)">
+                      <path d="M44.9475 32.2666V36.647C44.9475 37.6956 44.0894 38.5537 43.0408 38.5537H39.2274C38.1788 38.5537 37.3207 37.6956 37.3207 36.647V33.9912H10.6268V36.647C10.6268 37.6956 9.7689 38.5537 8.72009 38.5537H4.9067C3.85807 38.5537 3 37.6956 3 36.647V32.2666H44.9475Z" fill="#1B96A1"/>
+                      <path d="M44.9475 27.1136V34.7404H3V27.1136C3 27.1136 3 23.1762 6.57519 22.4612C6.69579 22.4332 6.81379 22.3949 6.92791 22.3469C7.49025 22.1085 7.90032 21.5841 8.01465 20.9644L8.46265 18.5335L9.49996 12.9029C9.91668 10.6415 11.8881 9 14.1876 9H33.7599C36.0594 9 38.031 10.6415 38.4476 12.9029L39.4849 18.5335L39.9329 20.9739C40.0472 21.5936 40.4573 22.1085 41.0198 22.3469C41.1339 22.395 41.2519 22.4332 41.3725 22.4612C44.9475 23.1762 44.9475 27.1136 44.9475 27.1136Z" fill="url(#ben_g0)"/>
+                      <path d="M43.4494 27.1136V33.2423H3V27.1136C3 27.1136 3 23.1762 6.57519 22.4612C6.69579 22.4332 6.81379 22.3949 6.92791 22.3469C7.49025 22.1085 7.90031 21.5841 8.01465 20.9644L8.46265 18.5335L9.49996 12.9029C9.91667 10.6415 11.8881 9 14.1876 9H32.2618C34.5614 9 36.5328 10.6415 36.9495 12.9029L37.9866 18.5335L38.4348 20.9739C38.5491 21.5936 38.959 22.1085 39.5215 22.3469C39.636 22.3945 39.7504 22.4326 39.8742 22.4612C43.4494 23.1762 43.4494 27.1136 43.4494 27.1136Z" fill="url(#ben_g1)"/>
+                      <path d="M8.46265 18.5334L8.01465 20.9644C7.90014 21.5841 7.49025 22.1085 6.92773 22.3468H3.95335C3.42894 22.3468 3 21.9177 3 21.3935C3 20.6021 3.32413 19.8872 3.83883 19.3723C4.10397 19.1064 4.419 18.8954 4.76584 18.7514C5.11268 18.6075 5.48452 18.5334 5.86005 18.5334H8.46265Z" fill="url(#ben_g2)"/>
+                      <path d="M44.9475 21.3935C44.9475 21.9177 44.5186 22.3468 43.9942 22.3468H41.0198C40.4573 22.1085 40.0472 21.5936 39.9329 20.9739L39.4849 18.5334H42.0875C42.8787 18.5334 43.5938 18.8576 44.1085 19.3723C44.3745 19.6374 44.5855 19.9524 44.7295 20.2992C44.8735 20.6461 44.9476 21.0179 44.9475 21.3935Z" fill="url(#ben_g3)"/>
+                      <path d="M13.2678 29.0202H8.46273C7.55235 29.0202 6.81348 28.2813 6.81348 27.3709V27.3672C6.81348 26.2202 7.81842 25.3327 8.95658 25.4747L12.7702 25.9514C13.2314 26.009 13.6556 26.2331 13.9632 26.5816C14.2708 26.9301 14.4404 27.379 14.4403 27.8438V27.8475C14.4402 28.1585 14.3166 28.4567 14.0968 28.6766C13.8769 28.8965 13.5787 29.0201 13.2678 29.0202Z" fill="url(#ben_g4)"/>
+                      <path d="M34.6798 29.0202H39.4849C40.3952 29.0202 41.1341 28.2813 41.1341 27.3709V27.3672C41.1341 26.2202 40.1293 25.3327 38.991 25.4747L35.1776 25.9514C34.7164 26.009 34.292 26.2331 33.9844 26.5816C33.6768 26.9301 33.5072 27.3789 33.5073 27.8438V27.8475C33.5074 28.1585 33.631 28.4567 33.8508 28.6766C34.0707 28.8965 34.3689 29.0201 34.6798 29.0202Z" fill="url(#ben_g5)"/>
+                      <path d="M35.8396 20.4402H12.1515C11.5577 20.4402 11.1086 19.9043 11.2125 19.321L12.2545 13.434C12.3328 12.9929 12.5639 12.5934 12.9073 12.3056C13.2508 12.0178 13.6845 11.8601 14.1326 11.8601H33.8241C34.7451 11.8601 35.5345 12.5179 35.7002 13.4236L36.7776 19.3152C36.8844 19.9006 36.4344 20.4402 35.8396 20.4402Z" fill="url(#ben_g6)"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6974 11.8601H19.2055L16.6204 20.4402H19.1124L21.6974 11.8601ZM29.1534 11.8601H24.0361L21.4509 20.4402H26.5682L29.1534 11.8601Z" fill="#E4E1FF"/>
+                    </g>
+                    <defs>
+                      <linearGradient id="ben_g0" x1="20.2284" y1="4.73178" x2="20.2284" y2="39.1888" gradientUnits="userSpaceOnUse"><stop stop-color="#CFE1EE"/><stop offset="1" stop-color="#97B7CE"/></linearGradient>
+                      <linearGradient id="ben_g1" x1="21.4507" y1="12.9718" x2="21.4507" y2="66.1552" gradientUnits="userSpaceOnUse"><stop stop-color="#DCEAF3"/><stop offset="1" stop-color="#97B7CE"/></linearGradient>
+                      <linearGradient id="ben_g2" x1="4.90801" y1="18.6222" x2="5.25758" y2="22.3905" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="ben_g3" x1="41.3929" y1="18.6222" x2="41.7424" y2="22.3905" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="ben_g4" x1="9.47737" y1="25.5426" x2="9.69668" y2="29.0777" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="ben_g5" x1="36.1712" y1="25.5426" x2="36.3905" y2="29.0777" gradientUnits="userSpaceOnUse"><stop stop-color="#3C1E07"/><stop offset="1" stop-color="#320D06"/></linearGradient>
+                      <linearGradient id="ben_g6" x1="11.1975" y1="16.1502" x2="36.7934" y2="16.1502" gradientUnits="userSpaceOnUse"><stop stop-color="#F7F4FF"/><stop offset="1" stop-color="#008A95"/></linearGradient>
+                    </defs>
                   </svg>
                 </div>
                 <div class="role-info">
                   <div class="role-name">Beneficiary</div>
                   <div class="role-desc">Driver or street vendor</div>
                 </div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8.91003 19.92L15.43 13.4C16.2 12.63 16.2 11.37 15.43 10.6L8.91003 4.08002" stroke="#1D1E25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
             </div>
           </div>
@@ -1272,7 +1307,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
         </div>
         <!-- Anda mini logo header -->
         <div class="otp-topbar">
-          <span class="otp-logo-text">anda</span>
+          <svg width="46" height="20" viewBox="0 0 46 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.3783 8.59164C13.5531 6.85598 15.2516 6.3659 17.2826 6.58969C18.7503 6.75143 19.7065 7.63308 19.9867 9.07797C20.08 9.55403 20.1197 10.0365 20.1283 10.5233C20.1694 12.7969 20.2169 15.0718 20.267 17.3465C20.2746 17.719 20.2376 18.1148 20.35 18.4569C20.5379 19.0326 20.3034 19.2176 19.7924 19.3192C19.0332 19.472 18.2758 19.5283 17.518 19.369C16.6901 19.1943 16.3008 18.7737 16.1859 17.9305C16.1407 17.6002 16.1429 17.2625 16.1361 16.9276C16.0945 15.0073 16.0602 13.0861 16.016 11.1659C15.9909 10.1205 15.7002 9.68726 14.9418 9.50863C14.04 9.29702 13.2767 9.64226 12.8451 10.4862C12.3579 11.4419 12.2469 12.4878 12.2553 13.5311C12.2705 15.3555 12.1791 17.1859 12.4565 18.9998C12.4891 19.2151 12.3992 19.3021 12.2113 19.3612C11.2276 19.6702 10.2341 19.7493 9.24161 19.4393C8.49235 19.2052 8.23071 18.599 8.20059 17.8788C8.16313 16.9851 8.15532 16.0895 8.13712 15.1942C8.09391 13.0696 8.05137 10.9437 8.0043 8.81918C7.99673 8.44677 7.98942 8.07167 7.94083 7.70395C7.83774 6.93501 7.8261 6.92627 8.5961 6.78598C9.24048 6.66882 9.88802 6.62589 10.5443 6.71664C11.537 6.85461 12.0015 7.31048 12.1039 8.3016C12.1276 8.51696 12.1361 8.73681 12.1508 8.95492L12.3783 8.59164ZM3.94083 11.6082C4.92528 11.524 5.89738 11.5888 6.85294 11.8534C6.93958 11.8773 7.0266 11.9027 7.11075 11.9305L7.14883 13.8231C6.86257 13.7827 6.56898 13.7666 6.25919 13.7704C5.84027 13.7827 5.38334 13.8314 4.95938 14.0379C4.59657 14.2162 4.33747 14.4855 4.2338 14.8885C4.18619 15.0718 4.18876 15.2579 4.20157 15.4452C4.24514 16.0699 4.59665 16.4929 5.20157 16.658C5.55059 16.7524 5.90591 16.7614 6.26407 16.7362C6.61976 16.711 6.93662 16.6049 7.20059 16.4325L7.24844 18.7704C6.83877 19.0498 6.37719 19.245 5.87051 19.3709C5.16424 19.5459 4.44665 19.5695 3.72403 19.5096C3.2115 19.4673 2.71047 19.3689 2.23087 19.1756C1.20039 18.7609 0.536797 18.0179 0.251373 16.9471C0.0285695 16.1086 0.00439964 15.2614 0.208405 14.4168C0.497913 13.22 1.24162 12.4133 2.3793 11.9598C2.75528 11.8105 3.14382 11.7122 3.54044 11.6532L3.94083 11.6082ZM28.9877 0.250821C29.8773 -0.0152432 30.7865 -0.082389 31.6957 0.111173C32.5156 0.285983 32.9018 0.759894 32.9447 1.60043C32.9851 2.38221 32.9894 3.16679 33.0053 3.94906C33.0917 8.19809 33.1799 12.4471 33.265 16.6961C33.2776 17.3127 33.2795 17.9313 33.4408 18.5282C33.506 18.7669 33.4537 18.8634 33.2289 18.9334C32.2643 19.2356 31.2886 19.3139 30.3109 19.037C29.5919 18.8331 29.2951 18.2726 29.2055 17.4071L29.0072 17.7049C28.0109 19.1149 26.6169 19.3924 25.0697 19.3045C23.0214 19.1868 21.5506 18.0418 20.9477 16.0262C20.4469 14.3543 20.3832 12.6462 20.7807 10.9432C21.3852 8.3571 23.2915 6.71493 25.9652 6.41391C26.8015 6.31984 27.6395 6.24605 28.476 6.34848C28.9233 6.40364 29.0127 6.23709 28.9877 5.82895C28.8854 4.08236 29.0403 2.32278 28.7338 0.586758C28.6887 0.328094 28.8343 0.296343 28.9877 0.250821ZM39.2143 6.02816C39.7912 6.0126 40.2265 6.04079 40.3295 6.0477C41.2154 6.10809 42.2238 6.1776 43.2982 6.71859C43.7009 6.92111 44.2298 7.19281 44.6928 7.77035C44.7548 7.84875 45.0555 8.2312 45.2826 8.84066C45.5654 9.59929 45.5535 10.2485 45.5619 10.5389C45.598 11.6793 45.6122 12.8206 45.64 14.1873C45.6795 15.1799 45.6579 16.4011 45.7328 17.619C45.7401 17.7383 45.7879 17.859 45.8344 18.0604L45.8764 18.2987C45.8824 18.3409 45.8925 18.4122 45.8607 18.4871C45.8018 18.622 45.6477 18.6732 45.5199 18.7118C44.9728 18.8766 44.6217 18.9179 44.6137 18.9188C44.4329 18.9392 44.243 18.9603 43.9809 18.9618C43.7173 18.962 43.3965 18.9634 43.0023 18.8661C42.6599 18.7805 42.3615 18.7064 42.1107 18.452C41.929 18.2676 41.8176 18.0332 41.8061 18.0086C41.7389 17.8626 41.6943 17.7082 41.683 17.6668C41.6649 17.6004 41.6525 17.545 41.644 17.5028C41.6087 17.542 41.5557 17.5996 41.4877 17.6678C41.3113 17.8449 40.9945 18.1625 40.5473 18.4286C40.2501 18.6054 40.0039 18.6953 39.8227 18.7606C39.5469 18.86 38.9054 19.0606 38.0277 19.0848C37.4944 19.0995 36.3938 19.115 35.3061 18.492C35.0914 18.3692 34.7856 18.1854 34.4779 17.8436C33.9479 17.2544 33.788 16.6013 33.7133 16.2801C33.6161 15.8607 33.6103 15.5162 33.6068 15.285C33.6041 15.0846 33.6006 14.7281 33.6879 14.2791C33.7555 13.9334 33.8796 13.33 34.3246 12.7186C34.4209 12.5856 34.6066 12.3517 34.8871 12.1161C35.5155 11.588 36.1795 11.4158 36.5326 11.3289C36.7617 11.2729 36.9323 11.2491 37.1195 11.2235C37.9863 11.1044 38.6689 11.1596 39.1752 11.2059C39.42 11.2292 39.607 11.247 39.8627 11.2996C40.2824 11.3862 40.6801 11.5223 40.6801 11.5223C41.1537 11.6848 41.354 11.8129 41.4525 11.7225C41.4992 11.6791 41.4973 11.5876 41.4975 11.4051C41.4967 11.1819 41.4618 11.0132 41.4574 10.9901C41.3622 10.5435 41.3036 10.2681 41.0941 9.95883C40.9034 9.67395 40.6853 9.51048 40.5834 9.43539C40.4137 9.30905 40.2106 9.19484 39.8881 9.08188C39.7197 9.02361 39.1335 8.82937 38.1781 8.81918C37.7331 8.81408 37.3136 8.81039 36.766 8.94613C36.024 9.12953 35.5266 9.45188 35.3656 9.57211C35.1138 9.76168 34.991 9.88421 34.9838 9.89145C34.9233 9.95307 34.8558 10.0115 34.7953 10.0731C34.6846 10.1857 34.6304 10.2518 34.557 10.2469C34.5099 10.2452 34.4761 10.2147 34.4565 10.1971C34.2835 10.04 34.1656 9.51883 34.1459 9.43441C34.1446 9.42793 34.1069 9.23934 34.1029 9.04379C34.0851 8.23071 34.5775 7.56723 34.5775 7.56723C34.8088 7.25454 35.0573 7.08392 35.269 6.94223C35.9058 6.51294 36.5007 6.38726 37.3012 6.22836C38.1514 6.05824 38.8198 6.03875 39.2143 6.02816ZM27.5932 9.18637C26.1012 9.23209 25.1741 9.94574 24.8149 11.3768C24.5424 12.4591 24.5587 13.5561 24.8236 14.6366C25.0087 15.3934 25.409 16.0061 26.2084 16.2508C27.5089 16.6485 28.5984 16.0019 28.9418 14.6161C29.1996 13.5726 29.1203 12.5088 29.1 11.4491L29.0805 10.5555C29.0613 9.61364 28.5654 9.15731 27.5932 9.18637ZM39.9066 13.3582C39.5717 13.3792 39.2377 13.3877 38.9027 13.4715C38.1134 13.6674 37.6345 14.3676 37.81 15.162C37.8907 15.5265 38.0648 15.8417 38.4272 16.0194C39.0479 16.3229 39.6855 16.3154 40.3324 16.1366C40.781 16.0128 41.1143 15.7251 41.3178 15.3436L41.3969 15.1756C41.5793 14.7248 41.6259 14.2264 41.5541 13.7293C41.5346 13.5935 41.435 13.555 41.3354 13.5262C40.8697 13.3905 40.3935 13.3342 39.9066 13.3582ZM5.55997 6.82406C6.04314 6.81039 6.52666 6.81391 7.00821 6.84652L7.07657 10.1991C6.88865 10.0641 6.67668 9.95551 6.44473 9.86898C6.00554 9.70574 5.54908 9.63479 5.08438 9.60824C4.42266 9.57028 3.76477 9.60546 3.12149 9.77914C2.39521 9.97505 1.7502 10.3134 1.23965 10.8788C1.18178 10.9416 1.12593 11.0102 1.07852 11.0819C1.04263 11.1386 1.02217 11.1236 0.990631 11.0809C0.838693 10.8772 0.743365 10.6466 0.68692 10.4012C0.585279 9.95608 0.546702 9.50763 0.675202 9.06039C0.825246 8.5332 1.15374 8.13552 1.59219 7.82211C2.08147 7.47292 2.63472 7.26569 3.21426 7.11898C3.79079 6.97336 4.3758 6.89343 4.96622 6.85336L5.55997 6.82406Z" fill="#7850FB"/></svg>
         </div>
         <!-- Main content -->
         <div class="otp-content screen-body">
@@ -1283,14 +1318,14 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
               </div>
             </div>
             <p class="auth-title">Confirm your email</p>
-            <p class="otp-desc">We've sent a code to your email address. Enter it below to verify your account.</p>
+            <p class="otp-desc">We've sent an email with a code to alesiakarapova@mail.com, please enter it below to create your Worials account.</p>
           </div>
           <!-- OTP boxes -->
           <div class="otp-boxes">
-            <div class="otp-box active" id="otp-box-0"></div>
-            <div class="otp-box" id="otp-box-1"></div>
-            <div class="otp-box" id="otp-box-2"></div>
-            <div class="otp-box" id="otp-box-3"></div>
+            <div class="otp-box filled">5</div>
+            <div class="otp-box filled">3</div>
+            <div class="otp-box filled">6</div>
+            <div class="otp-box active" id="otp-box-3"></div>
             <div class="otp-box" id="otp-box-4"></div>
           </div>
           <button class="btn-dark" style="width:100%" onclick="goTo('home')"><span>Confirm</span></button>
@@ -1302,22 +1337,30 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
             <button class="otp-key" onclick="otpInput('1')">1</button>
             <button class="otp-key" onclick="otpInput('2')">2</button>
             <button class="otp-key" onclick="otpInput('3')">3</button>
+            <button class="otp-key" onclick="otpInput('-')">-</button>
           </div>
           <div class="otp-key-row">
             <button class="otp-key" onclick="otpInput('4')">4</button>
             <button class="otp-key" onclick="otpInput('5')">5</button>
             <button class="otp-key" onclick="otpInput('6')">6</button>
+            <button class="otp-key" onclick="otpInput(' ')">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 10v4h12v-4" stroke="#1d1b20" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
           </div>
           <div class="otp-key-row">
             <button class="otp-key" onclick="otpInput('7')">7</button>
             <button class="otp-key" onclick="otpInput('8')">8</button>
             <button class="otp-key" onclick="otpInput('9')">9</button>
-          </div>
-          <div class="otp-key-row">
-            <button class="otp-key empty"></button>
-            <button class="otp-key" onclick="otpInput('0')">0</button>
             <button class="otp-key del" onclick="otpBackspace()">
               <svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M8 1H20C21.1 1 22 1.9 22 3v10c0 1.1-.9 2-2 2H8L1 8l7-7z" stroke="#1d1b20" stroke-width="1.4" stroke-linejoin="round"/><path d="M14 5.5l-4 5M10 5.5l4 5" stroke="#1d1b20" stroke-width="1.4" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="otp-key-row">
+            <button class="otp-key" onclick="otpInput(',')">,</button>
+            <button class="otp-key" onclick="otpInput('0')">0</button>
+            <button class="otp-key" onclick="otpInput('.')">.</button>
+            <button class="otp-key send" onclick="goTo('home')">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="#1d1b20" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
         </div>
@@ -1341,39 +1384,32 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
               <span class="home-welcome">Welcome back!</span>
               <span class="home-name">Zhafira</span>
             </div>
-            <div class="home-avatar">
-              <svg width="28" height="30" viewBox="0 0 28 30" fill="none"><circle cx="14" cy="10" r="7" fill="rgba(255,255,255,0.9)"/><path d="M2 28c0-6.6 5.4-12 12-12s12 5.4 12 12" stroke="rgba(255,255,255,0.9)" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+            <div class="home-avatar" style="background:transparent; border:none; padding:0;">
+              <img src="Assets/Avatar-Label.svg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
             </div>
           </div>
 
           <!-- Main card -->
           <div class="main-card">
             <div class="main-card-bg-pattern"></div>
-            <p class="main-card-label">Cash in hand</p>
-            <div class="main-card-amounts">
+            <p class="main-card-label" style="opacity:0;">Cash in hand</p>
+            <div class="main-card-amounts" style="opacity:0;">
               <div>
                 <span class="main-amount-big">10,450 </span><span class="main-amount-unit">Kz</span>
               </div>
-              <div class="main-amount-limit" style="color:#fff">
+              <div class="main-amount-limit" style="color:#fff; opacity:0;">
                 of <strong>50,000</strong> Kz
               </div>
             </div>
-            <div class="prog-wrap"><div class="prog-fill"></div></div>
-            <div class="prog-labels"><span>59% used</span><span>9,550 Kz left</span></div>
-            <button class="atm-btn"><span>ATM Deposit</span></button>
+            <div class="prog-wrap" style="opacity:0;"><div class="prog-fill"></div></div>
+            <div class="prog-labels" style="opacity:0;"><span>59% used</span><span>9,550 Kz left</span></div>
+            <button class="atm-btn" style="opacity:0;"><span>ATM Deposit</span></button>
           </div>
 
           <!-- Gamification card -->
           <div class="gam-card">
-            <div class="gam-icon-wrap">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="18" fill="#e8e8e8"/>
-                <circle cx="24" cy="22" r="11" fill="url(#silver-grad)" stroke="#c0c0c0" stroke-width="1.5"/>
-                <path d="M20 19l1.5 4.5L24 17l2.5 6.5L28 19" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-                <rect x="18" y="32" width="12" height="3" rx="1.5" fill="#c0c0c0"/>
-                <rect x="21" y="35" width="6" height="5" rx="1" fill="#b0b0b0"/>
-                <defs><linearGradient id="silver-grad" x1="13" y1="11" x2="35" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#e0e0e0"/><stop offset="1" stop-color="#a0a0a0"/></linearGradient></defs>
-              </svg>
+            <div class="gam-icon-wrap" style="background:transparent; display:flex; justify-content:center; align-items:center;">
+              <img src="Assets/Silver.svg" style="width:48px;height:48px;">
             </div>
             <div class="gam-info">
               <div class="gam-title">Silver Agent</div>
@@ -1394,8 +1430,8 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
             <div class="payment-entries">
               <div class="pay-entry">
                 <div class="pay-profile">
-                  <div class="pay-avatar" style="background:linear-gradient(135deg,#b8e8d8,#7ecfb8)">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="7" r="4" fill="rgba(0,80,60,0.7)"/><path d="M2 20c0-5 4-9 9-9s9 4 9 9" stroke="rgba(0,80,60,0.7)" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                  <div class="pay-avatar" style="background:transparent; overflow:hidden;">
+                    <img src="Assets/Avatar-1.svg" style="width:100%;height:100%;object-fit:cover;">
                   </div>
                   <div>
                     <div class="pay-name">João Mbemba</div>
@@ -1406,8 +1442,8 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
               </div>
               <div class="pay-entry">
                 <div class="pay-profile">
-                  <div class="pay-avatar" style="background:#bbedff">
-                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="7" r="4" fill="rgba(0,60,100,0.6)"/><path d="M2 20c0-5 4-9 9-9s9 4 9 9" stroke="rgba(0,60,100,0.6)" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                  <div class="pay-avatar" style="background:transparent; overflow:hidden;">
+                    <img src="Assets/Avatar.svg" style="width:100%;height:100%;object-fit:cover;">
                   </div>
                   <div>
                     <div class="pay-name">Carlos Lopes</div>
@@ -1446,7 +1482,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <div class="screen" id="screen-new-payment">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.4 2.4 12.5 3.5 14 5.2L15.5 3.5C13.6 1.3 10.9 0 8 0 5.1 0 2.4 1.3.5 3.5L2 5.2C3.5 3.5 5.6 2.4 8 2.4Z" fill="#1d1e25"/><path d="M8 5.4C9.7 5.4 11.2 6.2 12.2 7.4L13.7 5.7C12.3 4.1 10.3 3.1 8 3.1 5.7 3.1 3.7 4.1 2.3 5.7L3.8 7.4C4.8 6.2 6.3 5.4 8 5.4Z" fill="#1d1e25"/><circle cx="8" cy="10" r="2" fill="#1d1e25"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
       <div class="screen-header" style="background:#f7f6fa;">
-        <button class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="back-btn" onclick="goBack()"><img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;"></button>
         <span class="screen-header-title">New Payment</span>
       </div>
       <!-- scrollable content area below header -->
@@ -1477,7 +1513,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
       </div>
       <!-- scan QR button -->
       <div class="scan-qr-btn" onclick="goTo('qr-scan')">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="12" y="2" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="2" y="12" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="13" y="13" width="2" height="2" fill="white"/><rect x="16" y="13" width="2" height="2" fill="white"/><rect x="13" y="16" width="2" height="2" fill="white"/><rect x="16" y="16" width="2" height="2" fill="white"/></svg>
+        <img src="Icons%20folder/scanner.svg" style="width:20px;height:20px;filter:invert(1) brightness(2);">
         <span>Scan QR Code</span>
       </div>
     </div>
@@ -1490,8 +1526,8 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
         <span class="qr-status-time">9:30</span>
         <div style="display:flex;gap:6px;align-items:center"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="white"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="white"/><rect x="9" y="0" width="3" height="12" rx="1" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="white" opacity=".4"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/></svg></div>
       </div>
-      <button class="back-btn" style="position:absolute;top:58px;left:16px;z-index:10;border-color:rgba(255,255,255,.3);" onclick="goBack()">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button class="back-btn" style="position:absolute;top:58px;left:16px;z-index:10;" onclick="goBack()">
+        <img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;filter:invert(1) brightness(2);">
       </button>
       <div class="qr-heading">
         <div class="qr-title">Scan Driver QR Card</div>
@@ -1499,29 +1535,9 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
       </div>
       <div class="qr-frame" id="qr-frame">
         <div class="qr-frame-bg">
-          <svg width="180" height="180" viewBox="0 0 180 180" fill="none" opacity=".7">
-            <rect x="10" y="10" width="50" height="50" rx="4" fill="none" stroke="white" stroke-width="6"/>
-            <rect x="22" y="22" width="26" height="26" rx="2" fill="white"/>
-            <rect x="120" y="10" width="50" height="50" rx="4" fill="none" stroke="white" stroke-width="6"/>
-            <rect x="132" y="22" width="26" height="26" rx="2" fill="white"/>
-            <rect x="10" y="120" width="50" height="50" rx="4" fill="none" stroke="white" stroke-width="6"/>
-            <rect x="22" y="132" width="26" height="26" rx="2" fill="white"/>
-            <rect x="72" y="10" width="8" height="8" fill="white"/><rect x="84" y="10" width="8" height="8" fill="white"/><rect x="72" y="22" width="8" height="8" fill="white"/><rect x="84" y="22" width="8" height="8" fill="white"/><rect x="96" y="22" width="8" height="8" fill="white"/>
-            <rect x="72" y="40" width="8" height="8" fill="white"/><rect x="96" y="40" width="8" height="8" fill="white"/>
-            <rect x="120" y="72" width="8" height="8" fill="white"/><rect x="132" y="72" width="8" height="8" fill="white"/><rect x="144" y="72" width="8" height="8" fill="white"/><rect x="156" y="72" width="8" height="8" fill="white"/>
-            <rect x="10" y="72" width="8" height="8" fill="white"/><rect x="22" y="72" width="8" height="8" fill="white"/><rect x="34" y="72" width="8" height="8" fill="white"/><rect x="46" y="72" width="8" height="8" fill="white"/>
-            <rect x="72" y="72" width="8" height="8" fill="white"/><rect x="84" y="84" width="8" height="8" fill="white"/><rect x="96" y="72" width="8" height="8" fill="white"/><rect x="108" y="84" width="8" height="8" fill="white"/>
-            <rect x="72" y="96" width="8" height="8" fill="white"/><rect x="84" y="108" width="8" height="8" fill="white"/><rect x="108" y="96" width="8" height="8" fill="white"/>
-            <rect x="120" y="96" width="8" height="8" fill="white"/><rect x="132" y="108" width="8" height="8" fill="white"/><rect x="156" y="96" width="8" height="8" fill="white"/>
-            <rect x="72" y="120" width="8" height="8" fill="white"/><rect x="96" y="120" width="8" height="8" fill="white"/><rect x="72" y="132" width="8" height="8" fill="white"/><rect x="84" y="144" width="8" height="8" fill="white"/>
-            <rect x="96" y="132" width="8" height="8" fill="white"/><rect x="108" y="120" width="8" height="8" fill="white"/>
-            <rect x="10" y="84" width="8" height="8" fill="white"/><rect x="34" y="84" width="8" height="8" fill="white"/><rect x="46" y="96" width="8" height="8" fill="white"/><rect x="10" y="108" width="8" height="8" fill="white"/>
-          </svg>
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMyAzMyIgZmlsbD0iIzAwMCI+CjxyZWN0IHdpZHRoPSIzMyIgaGVpZ2h0PSIzMyIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNMiAyaDd2N2gtN3ogTTMgM3Y1aDV2LTV6IE00IDRoM3YzaC0zeiBNMjQgMmg3djdoLTd6IE0yNSAzdjVoNXYtNXogTTI2IDRoM3YzaC0zeiBNMiAyNGg3djdoLTd6IE0zIDI1djVoNXYtNXogTTQgMjZoM3YzaC0zeiBNMTAgMmgxdjFoLTF6IE0xNCAyaDF2MWgtMXogTTE1IDJoMXYxaC0xeiBNMTYgMmgxdjFoLTF6IE0yMSAyaDF2MWgtMXogTTExIDNoMXYxaC0xeiBNMTIgM2gxdjFoLTF6IE0xNCAzaDF2MWgtMXogTTE1IDNoMXYxaC0xeiBNMTcgM2gxdjFoLTF6IE0xOCAzaDF2MWgtMXogTTIxIDNoMXYxaC0xeiBNMTIgNGgxdjFoLTF6IE0xMyA0aDF2MWgtMXogTTE0IDRoMXYxaC0xeiBNMTUgNGgxdjFoLTF6IE0xNiA0aDF2MWgtMXogTTE3IDRoMXYxaC0xeiBNMTkgNGgxdjFoLTF6IE0yMCA0aDF2MWgtMXogTTIxIDRoMXYxaC0xeiBNMjIgNGgxdjFoLTF6IE0xMCA1aDF2MWgtMXogTTExIDVoMXYxaC0xeiBNMTkgNWgxdjFoLTF6IE0xMSA2aDF2MWgtMXogTTEyIDZoMXYxaC0xeiBNMTMgNmgxdjFoLTF6IE0xNSA2aDF2MWgtMXogTTE4IDZoMXYxaC0xeiBNMTkgNmgxdjFoLTF6IE0yMCA2aDF2MWgtMXogTTIxIDZoMXYxaC0xeiBNMjIgNmgxdjFoLTF6IE0xMCA3aDF2MWgtMXogTTE2IDdoMXYxaC0xeiBNMTcgN2gxdjFoLTF6IE0xOSA3aDF2MWgtMXogTTIxIDdoMXYxaC0xeiBNMTIgOGgxdjFoLTF6IE0xNCA4aDF2MWgtMXogTTE1IDhoMXYxaC0xeiBNMTggOGgxdjFoLTF6IE0xOSA4aDF2MWgtMXogTTEwIDloMXYxaC0xeiBNMTEgOWgxdjFoLTF6IE0xNSA5aDF2MWgtMXogTTE2IDloMXYxaC0xeiBNMTcgOWgxdjFoLTF6IE0xOCA5aDF2MWgtMXogTTIwIDloMXYxaC0xeiBNMjEgOWgxdjFoLTF6IE0yMiA5aDF2MWgtMXogTTMgMTBoMXYxaC0xeiBNNyAxMGgxdjFoLTF6IE04IDEwaDF2MWgtMXogTTEwIDEwaDF2MWgtMXogTTEyIDEwaDF2MWgtMXogTTEzIDEwaDF2MWgtMXogTTE1IDEwaDF2MWgtMXogTTE2IDEwaDF2MWgtMXogTTE4IDEwaDF2MWgtMXogTTE5IDEwaDF2MWgtMXogTTIwIDEwaDF2MWgtMXogTTIxIDEwaDF2MWgtMXogTTI1IDEwaDF2MWgtMXogTTI2IDEwaDF2MWgtMXogTTI3IDEwaDF2MWgtMXogTTMwIDEwaDF2MWgtMXogTTIgMTFoMXYxaC0xeiBNNiAxMWgxdjFoLTF6IE03IDExaDF2MWgtMXogTTEwIDExaDF2MWgtMXogTTEyIDExaDF2MWgtMXogTTE1IDExaDF2MWgtMXogTTE2IDExaDF2MWgtMXogTTE5IDExaDF2MWgtMXogTTIwIDExaDF2MWgtMXogTTIyIDExaDF2MWgtMXogTTI2IDExaDF2MWgtMXogTTMwIDExaDF2MWgtMXogTTMgMTJoMXYxaC0xeiBNNCAxMmgxdjFoLTF6IE03IDEyaDF2MWgtMXogTTEwIDEyaDF2MWgtMXogTTExIDEyaDF2MWgtMXogTTEzIDEyaDF2MWgtMXogTTE0IDEyaDF2MWgtMXogTTIwIDEyaDF2MWgtMXogTTIxIDEyaDF2MWgtMXogTTIyIDEyaDF2MWgtMXogTTI2IDEyaDF2MWgtMXogTTQgMTNoMXYxaC0xeiBNNiAxM2gxdjFoLTF6IE03IDEzaDF2MWgtMXogTTkgMTNoMXYxaC0xeiBNMTAgMTNoMXYxaC0xeiBNMTEgMTNoMXYxaC0xeiBNMTIgMTNoMXYxaC0xeiBNMTMgMTNoMXYxaC0xeiBNMjAgMTNoMXYxaC0xeiBNMjIgMTNoMXYxaC0xeiBNMjUgMTNoMXYxaC0xeiBNMjYgMTNoMXYxaC0xeiBNMjcgMTNoMXYxaC0xeiBNMjggMTNoMXYxaC0xeiBNMiAxNGgxdjFoLTF6IE0zIDE0aDF2MWgtMXogTTQgMTRoMXYxaC0xeiBNNSAxNGgxdjFoLTF6IE03IDE0aDF2MWgtMXogTTggMTRoMXYxaC0xeiBNOSAxNGgxdjFoLTF6IE0xMSAxNGgxdjFoLTF6IE0xNCAxNGgxdjFoLTF6IE0xNSAxNGgxdjFoLTF6IE0xOCAxNGgxdjFoLTF6IE0yMCAxNGgxdjFoLTF6IE0yMSAxNGgxdjFoLTF6IE0yMyAxNGgxdjFoLTF6IE0yNCAxNGgxdjFoLTF6IE0yNSAxNGgxdjFoLTF6IE0yNyAxNGgxdjFoLTF6IE0zMCAxNGgxdjFoLTF6IE00IDE1aDF2MWgtMXogTTcgMTVoMXYxaC0xeiBNOCAxNWgxdjFoLTF6IE0xMiAxNWgxdjFoLTF6IE0xMyAxNWgxdjFoLTF6IE0xNCAxNWgxdjFoLTF6IE0xNyAxNWgxdjFoLTF6IE0xOCAxNWgxdjFoLTF6IE0xOSAxNWgxdjFoLTF6IE0yMCAxNWgxdjFoLTF6IE0yMSAxNWgxdjFoLTF6IE0yMyAxNWgxdjFoLTF6IE0yNSAxNWgxdjFoLTF6IE0yNiAxNWgxdjFoLTF6IE0zMCAxNWgxdjFoLTF6IE0zIDE2aDF2MWgtMXogTTQgMTZoMXYxaC0xeiBNNiAxNmgxdjFoLTF6IE05IDE2aDF2MWgtMXogTTEwIDE2aDF2MWgtMXogTTE1IDE2aDF2MWgtMXogTTE2IDE2aDF2MWgtMXogTTE4IDE2aDF2MWgtMXogTTE5IDE2aDF2MWgtMXogTTIzIDE2aDF2MWgtMXogTTI0IDE2aDF2MWgtMXogTTI1IDE2aDF2MWgtMXogTTI2IDE2aDF2MWgtMXogTTI3IDE2aDF2MWgtMXogTTIgMTdoMXYxaC0xeiBNMyAxN2gxdjFoLTF6IE00IDE3aDF2MWgtMXogTTUgMTdoMXYxaC0xeiBNOSAxN2gxdjFoLTF6IE0xMCAxN2gxdjFoLTF6IE0xMiAxN2gxdjFoLTF6IE0xNCAxN2gxdjFoLTF6IE0xNSAxN2gxdjFoLTF6IE0xNiAxN2gxdjFoLTF6IE0xNyAxN2gxdjFoLTF6IE0xOCAxN2gxdjFoLTF6IE0yMCAxN2gxdjFoLTF6IE0yMiAxN2gxdjFoLTF6IE0yMyAxN2gxdjFoLTF6IE0yNCAxN2gxdjFoLTF6IE0yNSAxN2gxdjFoLTF6IE0yNyAxN2gxdjFoLTF6IE0yOSAxN2gxdjFoLTF6IE0zMCAxN2gxdjFoLTF6IE0zIDE4aDF2MWgtMXogTTYgMThoMXYxaC0xeiBNMTEgMThoMXYxaC0xeiBNMTIgMThoMXYxaC0xeiBNMTQgMThoMXYxaC0xeiBNMTYgMThoMXYxaC0xeiBNMTcgMThoMXYxaC0xeiBNMTggMThoMXYxaC0xeiBNMjAgMThoMXYxaC0xeiBNMjIgMThoMXYxaC0xeiBNMjYgMThoMXYxaC0xeiBNMjggMThoMXYxaC0xeiBNMjkgMThoMXYxaC0xeiBNMiAxOWgxdjFoLTF6IE00IDE5aDF2MWgtMXogTTYgMTloMXYxaC0xeiBNNyAxOWgxdjFoLTF6IE04IDE5aDF2MWgtMXogTTkgMTloMXYxaC0xeiBNMTAgMTloMXYxaC0xeiBNMTMgMTloMXYxaC0xeiBNMTYgMTloMXYxaC0xeiBNMTcgMTloMXYxaC0xeiBNMjUgMTloMXYxaC0xeiBNMjYgMTloMXYxaC0xeiBNMjcgMTloMXYxaC0xeiBNMjggMTloMXYxaC0xeiBNMzAgMTloMXYxaC0xeiBNNSAyMGgxdjFoLTF6IE02IDIwaDF2MWgtMXogTTExIDIwaDF2MWgtMXogTTEyIDIwaDF2MWgtMXogTTE1IDIwaDF2MWgtMXogTTE2IDIwaDF2MWgtMXogTTE4IDIwaDF2MWgtMXogTTE5IDIwaDF2MWgtMXogTTIwIDIwaDF2MWgtMXogTTI2IDIwaDF2MWgtMXogTTI5IDIwaDF2MWgtMXogTTIgMjFoMXYxaC0xeiBNNSAyMWgxdjFoLTF6IE03IDIxaDF2MWgtMXogTTggMjFoMXYxaC0xeiBNMTIgMjFoMXYxaC0xeiBNMTMgMjFoMXYxaC0xeiBNMTYgMjFoMXYxaC0xeiBNMTggMjFoMXYxaC0xeiBNMTkgMjFoMXYxaC0xeiBNMjAgMjFoMXYxaC0xeiBNMjEgMjFoMXYxaC0xeiBNMjIgMjFoMXYxaC0xeiBNMjMgMjFoMXYxaC0xeiBNMjQgMjFoMXYxaC0xeiBNMjUgMjFoMXYxaC0xeiBNMjYgMjFoMXYxaC0xeiBNMjcgMjFoMXYxaC0xeiBNMjggMjFoMXYxaC0xeiBNMjkgMjFoMXYxaC0xeiBNMzAgMjFoMXYxaC0xeiBNNSAyMmgxdjFoLTF6IE02IDIyaDF2MWgtMXogTTcgMjJoMXYxaC0xeiBNOCAyMmgxdjFoLTF6IE0xNCAyMmgxdjFoLTF6IE0xNyAyMmgxdjFoLTF6IE0xOCAyMmgxdjFoLTF6IE0yMSAyMmgxdjFoLTF6IE0yNSAyMmgxdjFoLTF6IE0yNiAyMmgxdjFoLTF6IE0yNyAyMmgxdjFoLTF6IE0yOCAyMmgxdjFoLTF6IE0yOSAyMmgxdjFoLTF6IE0xMiAyM2gxdjFoLTF6IE0xMyAyM2gxdjFoLTF6IE0xNCAyM2gxdjFoLTF6IE0xNiAyM2gxdjFoLTF6IE0xNyAyM2gxdjFoLTF6IE0xOCAyM2gxdjFoLTF6IE0yNCAyM2gxdjFoLTF6IE0yOSAyM2gxdjFoLTF6IE0xMSAyNGgxdjFoLTF6IE0xMyAyNGgxdjFoLTF6IE0yMCAyNGgxdjFoLTF6IE0yMiAyNGgxdjFoLTF6IE0yMyAyNGgxdjFoLTF6IE0yNyAyNGgxdjFoLTF6IE0yOCAyNGgxdjFoLTF6IE0zMCAyNGgxdjFoLTF6IE0xMCAyNWgxdjFoLTF6IE0xMSAyNWgxdjFoLTF6IE0xMiAyNWgxdjFoLTF6IE0xMyAyNWgxdjFoLTF6IE0xOCAyNWgxdjFoLTF6IE0xOSAyNWgxdjFoLTF6IE0yMSAyNWgxdjFoLTF6IE0yMiAyNWgxdjFoLTF6IE0yNCAyNWgxdjFoLTF6IE0yNSAyNWgxdjFoLTF6IE0yNyAyNWgxdjFoLTF6IE0yOCAyNWgxdjFoLTF6IE0xMSAyNmgxdjFoLTF6IE0xMiAyNmgxdjFoLTF6IE0xNCAyNmgxdjFoLTF6IE0xNiAyNmgxdjFoLTF6IE0xNyAyNmgxdjFoLTF6IE0xOSAyNmgxdjFoLTF6IE0yMCAyNmgxdjFoLTF6IE0yMSAyNmgxdjFoLTF6IE0yMyAyNmgxdjFoLTF6IE0yNCAyNmgxdjFoLTF6IE0yOCAyNmgxdjFoLTF6IE0zMCAyNmgxdjFoLTF6IE0xMCAyN2gxdjFoLTF6IE0xMiAyN2gxdjFoLTF6IE0xMyAyN2gxdjFoLTF6IE0xNCAyN2gxdjFoLTF6IE0xNSAyN2gxdjFoLTF6IE0xNyAyN2gxdjFoLTF6IE0xOCAyN2gxdjFoLTF6IE0yMCAyN2gxdjFoLTF6IE0yMSAyN2gxdjFoLTF6IE0yNCAyN2gxdjFoLTF6IE0yNiAyN2gxdjFoLTF6IE0yNyAyN2gxdjFoLTF6IE0yOSAyN2gxdjFoLTF6IE0xMSAyOGgxdjFoLTF6IE0xNCAyOGgxdjFoLTF6IE0xNyAyOGgxdjFoLTF6IE0xOSAyOGgxdjFoLTF6IE0yMCAyOGgxdjFoLTF6IE0yMyAyOGgxdjFoLTF6IE0yNSAyOGgxdjFoLTF6IE0yNyAyOGgxdjFoLTF6IE0yOCAyOGgxdjFoLTF6IE0yOSAyOGgxdjFoLTF6IE0xMCAyOWgxdjFoLTF6IE0xMyAyOWgxdjFoLTF6IE0xNSAyOWgxdjFoLTF6IE0xNyAyOWgxdjFoLTF6IE0xOSAyOWgxdjFoLTF6IE0yMSAyOWgxdjFoLTF6IE0yNyAyOWgxdjFoLTF6IE0yOCAyOWgxdjFoLTF6IE0xMSAzMGgxdjFoLTF6IE0xMiAzMGgxdjFoLTF6IE0xMyAzMGgxdjFoLTF6IE0yMCAzMGgxdjFoLTF6IE0yMiAzMGgxdjFoLTF6IE0yMyAzMGgxdjFoLTF6IE0yNCAzMGgxdjFoLTF6IE0yNiAzMGgxdjFoLTF6IE0yOCAzMGgxdjFoLTF6IE0yOSAzMGgxdjFoLTF6Ii8+Cjwvc3ZnPg==" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;border-radius:12px;"/>
         </div>
-        <div class="qr-corner tl"></div>
-        <div class="qr-corner tr"></div>
-        <div class="qr-corner bl"></div>
-        <div class="qr-corner br"></div>
+        <div class="qr-scan-line"></div>
         <div class="qr-invalid-ring" id="qr-invalid-ring"></div>
       </div>
       <div class="qr-invalid-txt" id="qr-invalid-txt">The QR code is invalid.</div>
@@ -1537,7 +1553,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <div class="screen" id="screen-verify">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.4 2.4 12.5 3.5 14 5.2L15.5 3.5C13.6 1.3 10.9 0 8 0 5.1 0 2.4 1.3.5 3.5L2 5.2C3.5 3.5 5.6 2.4 8 2.4Z" fill="#1d1e25"/><path d="M8 5.4C9.7 5.4 11.2 6.2 12.2 7.4L13.7 5.7C12.3 4.1 10.3 3.1 8 3.1 5.7 3.1 3.7 4.1 2.3 5.7L3.8 7.4C4.8 6.2 6.3 5.4 8 5.4Z" fill="#1d1e25"/><circle cx="8" cy="10" r="2" fill="#1d1e25"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
       <div class="screen-header" style="background:#f7f6fa;">
-        <button class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="back-btn" onclick="goBack()"><img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;"></button>
         <span class="screen-header-title">Verify Identity</span>
         <span class="step-badge"><span style="font-size:20px;font-weight:700;">1</span>/3</span>
       </div>
@@ -1566,7 +1582,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <div class="screen" id="screen-balance">
       <div class="sbar" style="background:#f7f6fa;position:sticky;top:0;z-index:10;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.4 2.4 12.5 3.5 14 5.2L15.5 3.5C13.6 1.3 10.9 0 8 0 5.1 0 2.4 1.3.5 3.5L2 5.2C3.5 3.5 5.6 2.4 8 2.4Z" fill="#1d1e25"/><path d="M8 5.4C9.7 5.4 11.2 6.2 12.2 7.4L13.7 5.7C12.3 4.1 10.3 3.1 8 3.1 5.7 3.1 3.7 4.1 2.3 5.7L3.8 7.4C4.8 6.2 6.3 5.4 8 5.4Z" fill="#1d1e25"/><circle cx="8" cy="10" r="2" fill="#1d1e25"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
       <div style="display:flex;align-items:center;height:52px;padding:0 20px;background:#f7f6fa;position:sticky;top:50px;z-index:9;">
-        <button class="back-btn" style="position:relative;left:auto;transform:none;" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="back-btn" style="position:relative;left:auto;transform:none;" onclick="goBack()"><img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;"></button>
         <span style="flex:1;text-align:center;font-size:18px;font-weight:600;color:#1d1e25;letter-spacing:-.27px;font-family:'Gilroy',sans-serif;">Balance</span>
         <span style="font-size:14px;font-weight:600;color:#0095a1;font-family:'Gilroy',sans-serif;"><span style="font-size:20px;font-weight:700;">2</span>/3</span>
       </div>
@@ -1629,7 +1645,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <div class="screen" id="screen-enter-amount">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.4C10.4 2.4 12.5 3.5 14 5.2L15.5 3.5C13.6 1.3 10.9 0 8 0 5.1 0 2.4 1.3.5 3.5L2 5.2C3.5 3.5 5.6 2.4 8 2.4Z" fill="#1d1e25"/><path d="M8 5.4C9.7 5.4 11.2 6.2 12.2 7.4L13.7 5.7C12.3 4.1 10.3 3.1 8 3.1 5.7 3.1 3.7 4.1 2.3 5.7L3.8 7.4C4.8 6.2 6.3 5.4 8 5.4Z" fill="#1d1e25"/><circle cx="8" cy="10" r="2" fill="#1d1e25"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
       <div class="screen-header" style="background:#f7f6fa;">
-        <button class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="back-btn" onclick="goBack()"><img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;"></button>
         <span class="screen-header-title">Enter Amount</span>
         <span class="step-badge"><span style="font-size:20px;font-weight:700;">3</span>/3</span>
       </div>
@@ -1810,7 +1826,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <!-- ══ SCREEN 16: HISTORY EMPTY ══ -->
     <div class="screen" id="screen-tab-history-empty">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
-      <div style="position:absolute;top:62px;left:20px;font-size:28px;font-weight:700;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;">History</div>
+      <div style="position:absolute;top:62px;left:20px;font-size:28px;font-weight:600;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;">History</div>
       <div class="empty-wrap">
         <div class="empty-icon-bg">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="4" y="2" width="16" height="20" rx="2.5" stroke="#aaa" stroke-width="1.6"/><path d="M8 7h8M8 11h6M8 15h4" stroke="#aaa" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -1967,7 +1983,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <div class="screen" id="screen-driver-profile">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
       <div class="dp-header">
-        <button class="back-btn" onclick="goBack()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1d1e25" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="back-btn" onclick="goBack()"><img src="Icons folder/arrow-left 2.svg" style="width:24px;height:24px;"></button>
         <span style="font-size:16px;font-weight:600;color:#1d1e25;">Driver Profile</span>
         <div style="width:32px;"></div>
       </div>
@@ -2313,7 +2329,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
         </div>
         <!-- Gamification -->
         <div class="gam-card">
-          <div class="gam-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#e8e8e8"/><circle cx="24" cy="22" r="11" fill="url(#sg2)" stroke="#c0c0c0" stroke-width="1.5"/><path d="M20 19l1.5 4.5L24 17l2.5 6.5L28 19" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><rect x="18" y="32" width="12" height="3" rx="1.5" fill="#c0c0c0"/><rect x="21" y="35" width="6" height="5" rx="1" fill="#b0b0b0"/><defs><linearGradient id="sg2" x1="13" y1="11" x2="35" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#e0e0e0"/><stop offset="1" stop-color="#a0a0a0"/></linearGradient></defs></svg></div>
+          <div class="gam-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="22" r="11" fill="url(#sg2)" stroke="#c0c0c0" stroke-width="1.5"/><path d="M20 19l1.5 4.5L24 17l2.5 6.5L28 19" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><rect x="18" y="32" width="12" height="3" rx="1.5" fill="#c0c0c0"/><rect x="21" y="35" width="6" height="5" rx="1" fill="#b0b0b0"/><defs><linearGradient id="sg2" x1="13" y1="11" x2="35" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#e0e0e0"/><stop offset="1" stop-color="#a0a0a0"/></linearGradient></defs></svg></div>
           <div class="gam-info"><div class="gam-title">Silver Agent</div><div class="gam-sub">1,550 Kz away from Gold</div><div class="gam-bar-bg"><div class="gam-bar-fill"></div></div></div>
         </div>
         <button class="hp-new-pay-btn">New Payment</button>
@@ -2486,7 +2502,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
         </div>
         <!-- Gamification -->
         <div class="gam-card">
-          <div class="gam-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#e8e8e8"/><circle cx="24" cy="22" r="11" fill="url(#sg3)" stroke="#c0c0c0" stroke-width="1.5"/><path d="M20 19l1.5 4.5L24 17l2.5 6.5L28 19" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><rect x="18" y="32" width="12" height="3" rx="1.5" fill="#c0c0c0"/><rect x="21" y="35" width="6" height="5" rx="1" fill="#b0b0b0"/><defs><linearGradient id="sg3" x1="13" y1="11" x2="35" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#e0e0e0"/><stop offset="1" stop-color="#a0a0a0"/></linearGradient></defs></svg></div>
+          <div class="gam-icon-wrap"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="22" r="11" fill="url(#sg3)" stroke="#c0c0c0" stroke-width="1.5"/><path d="M20 19l1.5 4.5L24 17l2.5 6.5L28 19" stroke="white" stroke-width="1.5" stroke-linejoin="round" fill="none"/><rect x="18" y="32" width="12" height="3" rx="1.5" fill="#c0c0c0"/><rect x="21" y="35" width="6" height="5" rx="1" fill="#b0b0b0"/><defs><linearGradient id="sg3" x1="13" y1="11" x2="35" y2="33" gradientUnits="userSpaceOnUse"><stop stop-color="#e0e0e0"/><stop offset="1" stop-color="#a0a0a0"/></linearGradient></defs></svg></div>
           <div class="gam-info"><div class="gam-title">Silver Agent</div><div class="gam-sub">1,550 Kz away from Gold</div><div class="gam-bar-bg"><div class="gam-bar-fill"></div></div></div>
         </div>
         <button class="hp-new-pay-btn">New Payment</button>
@@ -2853,8 +2869,8 @@ let current = 'splash';
 let history = [];
 
 /* ── OTP state ── */
-let otpValues = ['','','','',''];
-let otpFocus = 0;
+let otpValues = ['5','3','6','',''];
+let otpFocus = 3;
 
 function otpInput(digit) {
   if (otpFocus >= 5) return;
@@ -2888,8 +2904,8 @@ function updateOtpDisplay() {
 }
 
 function resetOtp() {
-  otpValues = ['','','','',''];
-  otpFocus = 0;
+  otpValues = ['5','3','6','',''];
+  otpFocus = 3;
   updateOtpDisplay();
 }
 
@@ -2953,13 +2969,13 @@ function initials(name) {
 }
 
 const ALL_DRIVERS = [
-  {name:'João Mbemba',   id:'AOL-2847-X', vehicle:'EV Bike',     ini:'JM', bg:'#d4e8e8', col:'#0095a1'},
-  {name:'Maria Domingos',id:'AOL-2847-X', vehicle:'Vendor',      ini:'MD', bg:'#fde8e8', col:'#c0392b'},
-  {name:'Paulo Tchilemba',id:'AOL-3901-K',vehicle:'Tuktuk',      ini:'PT', bg:'#e8f3ff', col:'#2980b9'},
-  {name:'Carlos Lopes',  id:'AOL-1183-M', vehicle:'Tuktuk',      ini:'CL', bg:'#fef9e7', col:'#d68910'},
-  {name:'Sofia Cardoso', id:'AOL-7734-B', vehicle:'EV Bike',     ini:'SC', bg:'#f3e8ff', col:'#7d3c98'},
-  {name:'Abel Mateus',   id:'AOL-3901-K', vehicle:'Tuktuk',      ini:'AM', bg:'#e8f7ee', col:'#1e8449'},
-  {name:'Catarina Neves',id:'AOL-5521-J', vehicle:'Smartphone',  ini:'CN', bg:'#fde8f4', col:'#a93226'},
+  {name:'João Mbemba',   id:'AOL-2847-X', vehicle:'EV Bike',     img:'Avatar-1.svg'},
+  {name:'Maria Domingos',id:'AOL-2847-X', vehicle:'Vendor',      img:'Avatar.svg'},
+  {name:'Paulo Tchilemba',id:'AOL-3901-K',vehicle:'Tuktuk',      img:'Avatar3.svg'},
+  {name:'Carlos Lopes',  id:'AOL-1183-M', vehicle:'Tuktuk',      img:'Avatar 5.svg'},
+  {name:'Sofia Cardoso', id:'AOL-7734-B', vehicle:'EV Bike',     img:'Avatar 4.svg'},
+  {name:'Abel Mateus',   id:'AOL-3901-K', vehicle:'Tuktuk',      img:'Avatar-1.svg'},
+  {name:'Catarina Neves',id:'AOL-5521-J', vehicle:'Smartphone',  img:'Avatar.svg'},
 ];
 
 function hlText(text, term) {
@@ -2973,7 +2989,9 @@ function drvRenderList(drivers, term) {
   const chevron = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6.5 4L12 9L6.5 14" stroke="#ccc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   return drivers.map(d => `
     <div class="drv-item" onclick="selectDriver('${d.name.replace(/'/g,"\\'")}','${d.id}','${d.vehicle}')">
-      <div class="drv-av" style="background:${d.bg};color:${d.col};">${d.ini}</div>
+      <div class="drv-av" style="background:transparent;overflow:hidden;">
+        <img src="Assets/${d.img}" style="width:100%;height:100%;object-fit:cover;">
+      </div>
       <div class="drv-info">
         <div class="drv-name">${hlText(d.name, term)}</div>
         <div class="drv-meta">${d.id} · ${d.vehicle}</div>
