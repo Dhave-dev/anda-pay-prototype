@@ -62,17 +62,70 @@ body::after{
 
 /* ── Layout ── */
 .app-shell{
-  position:relative;z-index:1;width:100%;max-width:1280px;
-  margin:0 auto;padding:56px 32px 32px;
-  display:grid;grid-template-columns:320px 460px 320px;gap:48px;
-  align-items:center;min-height:100vh;
+  position:relative;z-index:1;width:100%;height:100vh;
+  margin:0;padding:0;max-width:none;
+  display:flex;flex-direction:row;
+  align-items:stretch;overflow:hidden;
+  background:
+    linear-gradient(rgba(6,7,10,.60),rgba(6,7,10,.60)),
+    url('Assets/Onboadrign bg.svg') center/cover no-repeat;
 }
-.info-panel{display:flex;flex-direction:column;gap:20px;align-self:center;position:relative;z-index:2;}
-.info-panel.left{align-items:flex-start;}
-.info-panel.right{align-items:flex-end;text-align:right;}
-.phone-wrap{display:flex;justify-content:center;align-items:center;position:relative;}
-@media(max-width:1200px){.app-shell{grid-template-columns:280px 460px;gap:32px;}.info-panel.right{display:none;}}
-@media(max-width:880px){.app-shell{grid-template-columns:1fr;padding:24px 16px;gap:24px;}}
+.split-left{
+  width:40%;min-width:340px;max-width:480px;
+  background:none;
+  padding:28px 36px 32px;
+  display:flex;flex-direction:column;gap:0;
+  position:relative;z-index:2;
+  overflow-y:auto;border-right:1px solid rgba(255,255,255,.1);
+}
+.split-left::before{
+  content:'';position:absolute;top:-120px;right:-80px;width:440px;height:440px;
+  background:radial-gradient(circle,rgba(67,132,142,.22),transparent 60%);
+  filter:blur(90px);pointer-events:none;z-index:0;
+}
+.split-left::after{
+  content:'';position:absolute;bottom:-80px;left:-60px;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(67,132,142,.13),transparent 60%);
+  filter:blur(80px);pointer-events:none;z-index:0;
+}
+.split-right{
+  flex:1;
+  background:none;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  position:relative;z-index:10;
+  padding:52px 0 16px;overflow:hidden;
+}
+.phone-wrap{
+  display:flex;justify-content:center;align-items:center;
+  position:relative;width:100%;height:100%;
+}
+.phone-scaler{
+  position:relative;
+  transform-origin:center center;
+  width:375px;height:812px;flex-shrink:0;
+}
+.hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;position:relative;z-index:2;}
+.hero-section{margin-bottom:0;position:relative;z-index:2;}
+.feat-list{display:flex;flex-direction:column;gap:18px;margin-bottom:28px;position:relative;z-index:2;}
+.feat-item{display:flex;align-items:flex-start;gap:14px;}
+.feat-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(67,132,142,.14);border:1px solid rgba(67,132,142,.22);}
+.feat-title{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.15px;font-family:'Gilroy',sans-serif;margin-bottom:3px;}
+.feat-sub{font-size:12px;color:rgba(255,255,255,.38);font-family:'Gilroy',sans-serif;line-height:1.45;}
+.hero-divider{height:1px;background:rgba(255,255,255,.07);margin:0 0 20px;position:relative;z-index:2;}
+@media(max-width:900px){
+  .app-shell{flex-direction:column;overflow-y:auto;height:auto;}
+  .split-left{width:100%;max-width:none;min-height:auto;padding:20px 20px 16px;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .split-right{width:100%;min-height:600px;overflow:hidden;}
+  .hero-top{margin-bottom:12px;}
+  .flow-hint{max-width:100%;}
+  .nav-groups{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .nav-group{min-width:0;}
+}
+@media(max-width:520px){
+  .nav-groups{grid-template-columns:1fr;}
+  .split-left{padding:16px;}
+  h1{font-size:28px;}
+}
 
 /* ── Left panel ── */
 .brand-tag{
@@ -83,13 +136,18 @@ body::after{
 }
 .brand-tag::before{
   content:'';width:6px;height:6px;border-radius:50%;
-  background:#0095a1;box-shadow:0 0 8px #0095a1;animation:pulse 2s ease-in-out infinite;
+  background:#fff;box-shadow:0 0 8px #fff;animation:pulse 2s ease-in-out infinite;
 }
 h1{font-size:38px;font-weight:700;line-height:1.05;
   background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.65) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;}
-.subtitle{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5;max-width:280px;}
+.subtitle{font-size:22px;font-weight:700;color:rgba(255,255,255,.85);line-height:1.25;max-width:320px;letter-spacing:-.4px;font-family:'Gilroy',sans-serif;margin:0;}
 .subtitle span{color:#fff;font-weight:600;}
+.flow-hint{
+  font-size:12px;color:rgba(255,255,255,.38);line-height:1.6;
+  margin-top:8px;max-width:300px;font-family:'Gilroy',sans-serif;
+}
+.flow-hint strong{color:rgba(255,255,255,.75);font-weight:600;}
 .current-badge{
   display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
@@ -97,30 +155,29 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 }
 .current-badge .label{color:rgba(255,255,255,.4);}
 .current-badge .value{color:#fff;font-weight:600;}
-.kb-hints{display:flex;gap:8px;margin-top:12px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;}
-.kb-hint{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,.45);}
+.kb-hints{display:flex;gap:8px;margin-top:12px;padding-top:14px;border-top:1px solid rgba(0,0,0,.06);flex-wrap:wrap;}
+.kb-hint{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:#575757;}
 .kb-key{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:20px;height:20px;padding:0 5px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:5px;font-size:10px;color:rgba(255,255,255,.7);
+  padding:3px 6px;background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.1);
+  border-radius:4px;font-weight:600;color:#15141f;font-family:monospace;font-size:9px;
 }
 
 /* ── Phone wrap ── */
 .phone-wrap::before{
-  content:'';position:absolute;inset:-80px;
-  background:radial-gradient(ellipse at 30% 30%,rgba(0,149,161,.3),transparent 55%),
-    radial-gradient(ellipse at 70% 70%,rgba(0,149,161,.2),transparent 55%);
-  filter:blur(60px);pointer-events:none;z-index:0;animation:phoneGlow 10s ease-in-out infinite;
+  content:'';position:absolute;
+  width:580px;height:580px;
+  background:radial-gradient(circle,rgba(0,149,161,.42) 0%,rgba(0,149,161,.14) 38%,transparent 68%);
+  filter:blur(52px);z-index:0;pointer-events:none;
 }
 .live-badge{
-  position:absolute;top:-32px;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:6px;padding:6px 12px;
-  background:rgba(20,20,28,.85);backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.08);border-radius:999px;
-  font-size:10px;font-weight:600;color:rgba(255,255,255,.7);
+  position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:6px;padding:6px 14px;
+  background:rgba(22,24,30,.88);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.1);border-radius:999px;
+  font-size:10px;font-weight:700;color:rgba(255,255,255,.8);
   letter-spacing:.8px;text-transform:uppercase;z-index:5;
-  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+  white-space:nowrap;
 }
 .live-badge::before{
   content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;
@@ -130,9 +187,12 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 .phone{
   width:375px;height:812px;border-radius:44px;overflow:hidden;
   position:relative;flex-shrink:0;z-index:1;
-  box-shadow:0 0 0 10px #1a1a22,0 0 0 11px rgba(255,255,255,.06),
-    0 0 0 12px rgba(0,0,0,.6),0 50px 120px rgba(0,0,0,.9),
-    0 20px 60px rgba(0,0,0,.7),0 0 100px rgba(0,149,161,.2);
+  box-shadow:
+    0 0 0 10px #1c1e25,
+    0 0 0 11px rgba(255,255,255,.05),
+    0 60px 140px rgba(0,0,0,.95),
+    0 30px 70px rgba(0,0,0,.75),
+    0 10px 30px rgba(0,0,0,.55);
   user-select:none;-webkit-tap-highlight-color:transparent;
  -webkit-mask-image: -webkit-radial-gradient(white, black); transform: translateZ(0);}
 
@@ -185,65 +245,83 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 .toast.fade-out{animation:toastOut 150ms cubic-bezier(.3,0,1,1) forwards;}
 .toast-dot{width:8px;height:8px;border-radius:50%;background:#0095a1;box-shadow:0 0 8px #0095a1;}
 
-/* ── Nav card (right panel) ── */
+/* ── Nav card — phone design system, dark mode ── */
 .nav-card{
-  padding:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;backdrop-filter:blur(20px);width:100%;
-  box-shadow:0 16px 40px rgba(0,0,0,.3);
+  padding:16px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:24px;
+  backdrop-filter:blur(20px);
+  width:100%;
+  box-shadow:0 14px 40px rgba(0,0,0,.35);
+  position:relative;overflow:hidden;
 }
+.nav-card::before{content:none;}
+.nav-card > * { position:relative; z-index:1; }
 .nav-card-header{
   display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06);
+  margin-bottom:12px;padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
-.nav-card-title{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;font-weight:600;}
-.nav-card-count{font-size:11px;padding:3px 8px;background:rgba(255,255,255,.06);border-radius:999px;color:rgba(255,255,255,.6);font-weight:500;}
+.nav-card-title{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1px;font-weight:600;font-family:'Gilroy',sans-serif;}
+.nav-card-count{font-size:11px;padding:3px 10px;background:rgba(0,149,161,.18);border-radius:999px;color:#0095a1;font-weight:600;border:1px solid rgba(0,149,161,.3);}
 
-/* ── Grouped nav ── */
-.nav-groups{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+/* ── Grouped nav — phone DS dark ── */
+.nav-groups{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.nav-group{border-radius:16px;overflow:hidden;}
 .nav-group-hdr{
   display:flex;align-items:center;justify-content:space-between;
-  padding:9px 12px;cursor:pointer;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-  border-radius:10px;transition:background 150ms cubic-bezier(.2,0,0,1),color 150ms cubic-bezier(.2,0,0,1);user-select:none;
+  padding:10px 14px;cursor:pointer;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  transition:background 150ms cubic-bezier(.2,0,0,1);user-select:none;
 }
-.nav-group-hdr:hover{background:rgba(255,255,255,.07);}
-.nav-group-hdr.open{border-radius:10px 10px 0 0;border-bottom-color:transparent;}
-.nav-group-hdr.has-active{border-color:rgba(0,149,161,.35);}
-.nav-group-left{display:flex;align-items:center;gap:8px;}
-.nav-group-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);flex-shrink:0;transition:all 150ms cubic-bezier(.2,0,0,1);}
-.nav-group-hdr.has-active .nav-group-dot{background:#0095a1;box-shadow:0 0 6px #0095a1;}
-.nav-group-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.7px;text-transform:uppercase;font-family:'Gilroy',sans-serif;transition:color 150ms cubic-bezier(.2,0,0,1);}
-.nav-group-hdr.has-active .nav-group-name,.nav-group-hdr.open .nav-group-name{color:rgba(255,255,255,.8);}
+.nav-group-hdr:hover{background:rgba(255,255,255,.09);}
+.nav-group-hdr.open{border-radius:16px 16px 0 0;border-bottom-color:transparent;}
+.nav-group-hdr.has-active{border-color:rgba(0,149,161,.45);background:rgba(0,149,161,.1);}
+.nav-group-left{display:flex;align-items:center;gap:9px;}
+.nav-group-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0;transition:all 150ms cubic-bezier(.2,0,0,1);}
+.nav-group-hdr.has-active .nav-group-dot{background:#0095a1;box-shadow:0 0 8px rgba(0,149,161,.7);}
+.nav-group-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;font-family:'Gilroy',sans-serif;transition:color 150ms;}
+.nav-group-hdr.has-active .nav-group-name,.nav-group-hdr.open .nav-group-name{color:rgba(255,255,255,.9);}
 .nav-group-right{display:flex;align-items:center;gap:6px;}
-.nav-group-badge{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.06);border-radius:999px;color:rgba(255,255,255,.35);font-weight:500;}
-.nav-group-hdr.has-active .nav-group-badge{background:rgba(0,149,161,.15);color:rgba(0,149,161,.8);}
-.nav-group-chevron{width:14px;height:14px;display:flex;align-items:center;justify-content:center;transition:transform 200ms cubic-bezier(.2,0,0,1);opacity:.35;}
-.nav-group-hdr.open .nav-group-chevron{transform:rotate(180deg);opacity:.6;}
+.nav-group-badge{display:block;font-size:10px;padding:2px 8px;background:rgba(255,255,255,.08);border-radius:999px;color:rgba(255,255,255,.4);font-weight:500;}
+.nav-group-hdr.has-active .nav-group-badge{background:rgba(0,149,161,.2);color:rgba(0,200,210,1);}
+.nav-group-chevron{width:14px;height:14px;display:flex;align-items:center;justify-content:center;transition:transform 200ms cubic-bezier(.2,0,0,1);opacity:.35;color:#fff;}
+.nav-group-hdr.open .nav-group-chevron{transform:rotate(180deg);opacity:.65;}
 .nav-group-body{
-  display:none;flex-direction:column;gap:1px;padding:4px 6px 6px;
-  background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);
-  border-top:none;border-radius:0 0 10px 10px;
+  display:none;flex-direction:column;gap:2px;padding:6px 8px 8px;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.07);border-top:none;
+  border-radius:0 0 16px 16px;
 }
 .nav-group-body.open{display:flex;}
 .qbtn{
-  padding:7px 10px;border-radius:7px;font-size:12px;cursor:pointer;
-  font-family:'Gilroy',sans-serif;font-weight:500;letter-spacing:.1px;
+  padding:8px 10px;border-radius:12px;font-size:12px;cursor:pointer;
+  font-family:'Gilroy',sans-serif;font-weight:500;letter-spacing:-.1px;
   background:transparent;border:none;
-  color:rgba(255,255,255,.4);transition:background 150ms cubic-bezier(.2,0,0,1),color 150ms cubic-bezier(.2,0,0,1);text-align:left;
-  display:flex;align-items:center;gap:8px;width:100%;
+  color:rgba(255,255,255,.42);
+  transition:background 150ms cubic-bezier(.2,0,0,1),color 150ms;
+  text-align:left;display:flex;align-items:center;gap:9px;width:100%;
 }
-.qbtn:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);}
-.qbtn.active{background:rgba(0,149,161,.14);color:#fff;border-radius:7px;}
-.qbtn-num{font-size:10px;color:rgba(255,255,255,.22);font-weight:500;min-width:16px;}
-.qbtn.active .qbtn-num{color:rgba(0,149,161,.7);}
+.qbtn:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);}
+.qbtn.active{
+  background:rgba(0,149,161,.15);color:#fff;border-radius:12px;
+  box-shadow:inset 0 0 0 1px rgba(0,149,161,.35);
+}
+.qbtn-num{font-size:10px;color:rgba(255,255,255,.2);font-weight:500;min-width:18px;}
+.qbtn.active .qbtn-num{color:rgba(0,200,210,.8);}
 .controls{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
 .ctrl-btn{
-  padding:7px 16px;border-radius:20px;font-size:12px;cursor:pointer;
-  font-family:'Gilroy',sans-serif;border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.08);color:#fff;transition:background 150ms cubic-bezier(.2,0,0,1);
-  display:flex;align-items:center;gap:5px;
+  padding:8px 18px;border-radius:99px;font-size:12px;cursor:pointer;
+  font-family:'Gilroy',sans-serif;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.75);
+  transition:background 150ms cubic-bezier(.2,0,0,1),color 150ms;
+  display:flex;align-items:center;gap:6px;
 }
-.ctrl-btn:hover{background:rgba(255,255,255,.14);}
+.ctrl-btn:hover{background:rgba(255,255,255,.13);color:#fff;}
 
 /* ════════════════════════════════
    SCREEN STYLES
@@ -707,7 +785,10 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .ts-share:hover{background:rgba(0,0,0,.03);}
 
 /* ── Main Tabs shared ── */
-.tab-page-title{font-size:28px;font-weight:600;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;line-height:1.1;margin-bottom:14px;}
+.tab-page-title{font-size:28px;font-weight:600;color:#1d1e25;letter-spacing:-.7px;font-family:'Gilroy',sans-serif;line-height:1.1;margin-bottom:0;}
+.tab-title-bar{position:absolute;top:50px;left:0;width:375px;z-index:9;background:#f7f6fa;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;}
+.st-search-bar{position:absolute;top:100px;left:0;width:375px;z-index:12;background:#f7f6fa;padding:4px 20px 12px;}
+.st-search-wrap:focus-within{border-color:#7850fb;box-shadow:0 0 0 3px rgba(120,80,251,.18);}
 .tab-bottom-nav{
   position:absolute;bottom:0;left:0;width:375px;
   background:#fff;
@@ -725,7 +806,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 /* History screen */
 #screen-tab-history{background:#f7f6fa;}
 #screen-tab-history-empty{background:#f7f6fa;}
-.hist-body{position:absolute;top:50px;left:0;width:375px;bottom:0;overflow-y:auto;padding:14px 20px 90px;}
+.hist-body{position:absolute;top:100px;left:0;width:375px;bottom:0;overflow-y:auto;padding:14px 20px 90px;}
 .hist-stats-card{background:#1d1e25;border-radius:16px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;}
 .hist-stat{flex:1;display:flex;flex-direction:column;gap:4px;padding:0 14px;}
 .hist-stat:first-child{padding-left:0;}
@@ -752,7 +833,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 /* Search tab screen */
 #screen-tab-search{background:#f7f6fa;}
 #screen-tab-search-empty{background:#f7f6fa;}
-.st-body{position:absolute;top:50px;left:0;width:375px;bottom:0;overflow-y:auto;padding:14px 20px 100px;}
+.st-body{position:absolute;top:172px;left:0;width:375px;bottom:0;overflow-y:auto;padding:14px 20px 100px;}
 .st-search-wrap{display:flex;align-items:center;gap:10px;height:56px;background:#fff;border:1px solid #d4d4d4;border-radius:12px;padding:0 16px;margin-bottom:20px;}
 .st-search-input{flex:1;border:none;outline:none;background:transparent;font-size:16px;font-weight:500;color:#1d1e25;font-family:'Gilroy',sans-serif;padding-left:8px;}
 .st-search-input::placeholder{color:#575757;font-weight:500;}
@@ -1108,6 +1189,93 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .android-kb-key.space { max-width: 154px; }
 .android-kb-key.action { background: #1976d2; border-radius: 50%; width: 42px; height: 42px; max-width: 42px; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
+/* ── Dark Theme Overrides ── */
+.phone.dark-theme .screen { background: #000000; }
+.phone.dark-theme .sbar.light .sbar-time, .phone.dark-theme .sbar.light .sbar-icons { color: #fff; }
+.phone.dark-theme .sbar.dark .sbar-time, .phone.dark-theme .sbar.dark .sbar-icons { color: #fff; }
+.phone.dark-theme .sbar.dark svg path { stroke: #fff; }
+.phone.dark-theme .sbar.dark svg rect { fill: #fff; }
+.phone.dark-theme .sbar.dark svg circle { fill: #fff; }
+.phone.dark-theme .btn-light { background: #1c1c24; color: #fff; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .main-card-wrap { background: #1c1c24; box-shadow: 0 10px 30px rgba(0,0,0,.4); border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .main-card-label, .phone.dark-theme .main-card-amounts, .phone.dark-theme .prog-labels { color: #fff; }
+.phone.dark-theme .action-btn { background: #1c1c24; border-color: rgba(255,255,255,0.05); box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+.phone.dark-theme .action-btn span { color: #fff; }
+.phone.dark-theme .new-pay-btn, .phone.dark-theme .scan-qr-btn { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .new-pay-btn span, .phone.dark-theme .scan-qr-btn span { color: #fff; }
+.phone.dark-theme .drv-search { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .drv-search input { color: #fff; }
+.phone.dark-theme .np-si-wrap { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .np-si-wrap input { color: #fff; }
+.phone.dark-theme .drv-item { background: #1c1c24; box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+.phone.dark-theme .drv-name { color: #fff; }
+.phone.dark-theme .drv-role { color: #a0a0b0; }
+.phone.dark-theme .qr-frame-bg { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .vi-drv-pill { background: #1c1c24; color: #fff; }
+.phone.dark-theme .prod-card { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .prod-title { color: #fff; }
+.phone.dark-theme .prod-desc { color: #a0a0b0; }
+.phone.dark-theme .ea-chip { background: #1c1c24; border-color: rgba(255,255,255,0.05); color: #fff; }
+.phone.dark-theme .ea-chip-title { color: #fff; }
+.phone.dark-theme .ts-receipt { background: #1c1c24; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.phone.dark-theme .ts-rec-row-val { color: #fff; }
+.phone.dark-theme .ts-rec-row-lbl { color: #a0a0b0; }
+.phone.dark-theme .ts-audio { background: #1c1c24; box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+.phone.dark-theme .ts-audio-title { color: #fff; }
+.phone.dark-theme .hist-card { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .hist-name { color: #fff; }
+.phone.dark-theme .hist-type { color: #a0a0b0; }
+.phone.dark-theme .hist-amt { color: #fff; }
+.phone.dark-theme .hist-pill { background: #1c1c24; border-color: rgba(255,255,255,0.05); color: #fff; }
+.phone.dark-theme .hist-pill.active { background: #6224c5; border-color: #6224c5; color: #fff; }
+.phone.dark-theme .st-search-wrap { background: #1c1c24; border-color: rgba(255,255,255,0.05); }
+.phone.dark-theme .st-search-wrap input { color: #fff; }
+.phone.dark-theme .st-drv-card { background: #1c1c24; box-shadow: 0 14px 13px rgba(0,0,0,.3); }
+.phone.dark-theme .st-drv-name { color: #fff; }
+.phone.dark-theme .st-drv-role { color: #a0a0b0; }
+.phone.dark-theme .dp-card { background: #1c1c24; }
+.phone.dark-theme .dp-val { color: #fff; }
+.phone.dark-theme .dp-lbl { color: #a0a0b0; }
+.phone.dark-theme .dp-prod-title { color: #fff; }
+.phone.dark-theme .dp-hist-amt { color: #fff; }
+.phone.dark-theme .sf-row { background: #1c1c24; }
+.phone.dark-theme .sf-row-title { color: #fff; }
+.phone.dark-theme .sf-row-desc { color: #a0a0b0; }
+.phone.dark-theme .al-sheet, .phone.dark-theme .rd-sheet { background: #1c1c24; }
+.phone.dark-theme .al-title, .phone.dark-theme .rd-row-val { color: #fff; }
+.phone.dark-theme .al-desc, .phone.dark-theme .rd-row-lbl { color: #a0a0b0; }
+.phone.dark-theme .sr-bottom { background: #1c1c24; }
+.phone.dark-theme .vf-step-title { color: #fff; }
+.phone.dark-theme .vf-step-desc { color: #a0a0b0; }
+.phone.dark-theme .ts-title, .phone.dark-theme .ts-amt { color: #fff; }
+.phone.dark-theme .np-title { color: #fff; }
+.phone.dark-theme .vi-title { color: #fff; }
+.phone.dark-theme .bal-cash-amt { color: #fff; }
+.phone.dark-theme .ea-title { color: #fff; }
+.phone.dark-theme .ea-amount-big { color: #fff; }
+.phone.dark-theme .bottom-nav { background: #15141f; border-top: 1px solid rgba(255,255,255,0.05); }
+.phone.dark-theme .bn-item.active { color: #0095a1; }
+.phone.dark-theme .bn-item { color: #a0a0b0; }
+.phone.dark-theme .ts-check-ring { background: #1c1c24; border-color: #0095a1; }
+.phone.dark-theme .btn-dark { background: #fff; }
+.phone.dark-theme .btn-dark span { color: #15141f; }
+.phone.dark-theme .np-empty-scan-btn { background: #fff; }
+.phone.dark-theme .np-empty-scan-btn span { color: #15141f; }
+.phone.dark-theme .np-empty-title { color: #fff; }
+.phone.dark-theme .np-empty-desc { color: #a0a0b0; }
+.phone.dark-theme .lr-title { color: #fff; }
+.phone.dark-theme .lr-desc { color: #a0a0b0; }
+.phone.dark-theme .sr-title { color: #fff; }
+.phone.dark-theme .sr-desc { color: #a0a0b0; }
+.phone.dark-theme .hp-title { color: #fff; }
+.phone.dark-theme .hp-desc { color: #a0a0b0; }
+.phone.dark-theme .kb-row { background: transparent; }
+.phone.dark-theme .android-kb-key { background: #1c1c24; color: #fff; }
+.phone.dark-theme .android-kb-key.special { background: #2a2a35; color: #fff; }
+.phone.dark-theme .h-header { background: #1c1c24; }
+.phone.dark-theme .h-header-title { color: #fff; }
+.phone.dark-theme .ts-icon svg path, .phone.dark-theme .ts-icon svg circle { stroke: #fff; }
+.phone.dark-theme .top-nav { color: #fff; }
 </style>
 </head>
 <body>
@@ -1116,26 +1284,161 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 
 <div class="app-shell">
 
-  <!-- LEFT PANEL -->
-  <div class="info-panel left">
-    <div class="brand-tag">Interactive Prototype</div>
-    <div>
-      <h1>Anda Pay<br/>Onboarding</h1>
-      <p class="subtitle" style="margin-top:12px">5-screen flow: <span>Splash → Role → Sign In → OTP → Home</span>. Click through or use keyboard.</p>
+  <!-- SPLIT LEFT -->
+  <div class="split-left">
+
+    <!-- Hero branding -->
+    <div class="hero-top">
+      <img src="Assets/anda logo - 1.svg" height="24" style="opacity:.92;flex-shrink:0;">
+      <div class="brand-tag">Interactive Prototype</div>
     </div>
-    <div class="current-badge">
-      <span class="label">Current:</span>
-      <span class="value" id="screen-label">Splash</span>
+
+    <div class="hero-section" style="margin-top:8px;">
+      <h2 class="subtitle">Agent app — payment collection &amp; driver management.</h2>
+      <p class="flow-hint">5-screen onboarding: <strong>Splash → Role → Sign In → OTP → Home</strong>. Click through or use keyboard.</p>
     </div>
-    <div class="kb-hints">
-      <div class="kb-hint"><span class="kb-key">←</span><span>Prev</span></div>
-      <div class="kb-hint"><span class="kb-key">→</span><span>Next</span></div>
-      <div class="kb-hint"><span class="kb-key">Esc</span><span>Back</span></div>
+
+    <div class="hero-divider" style="margin-top:18px;"></div>
+
+    <!-- Screen navigator -->
+    <div style="position:relative;z-index:2;">
+    <div class="nav-card">
+      <div class="nav-card-header">
+        <span class="nav-card-title">Screens</span>
+        <span class="nav-card-count">30</span>
+      </div>
+      <div class="nav-groups" id="nav-groups">
+
+        <!-- Onboarding -->
+        <div class="nav-group" id="ng-onboarding">
+          <div class="nav-group-hdr has-active" onclick="toggleGroup('onboarding')">
+            <div class="nav-group-left">
+              <div class="nav-group-dot"></div>
+              <span class="nav-group-name">Onboarding</span>
+            </div>
+            <div class="nav-group-right">
+              <span class="nav-group-badge">4</span>
+              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="nav-group-body open" id="ngb-onboarding">
+            <button class="qbtn active" data-screen="splash" onclick="jumpTo('splash')"><span class="qbtn-num">01</span><span>Splash</span></button>
+            <button class="qbtn" data-screen="role" onclick="jumpTo('role')"><span class="qbtn-num">02</span><span>Select Role</span></button>
+            <button class="qbtn" data-screen="signin" onclick="jumpTo('signin')"><span class="qbtn-num">03</span><span>Sign In</span></button>
+            <button class="qbtn" data-screen="otp" onclick="jumpTo('otp')"><span class="qbtn-num">04</span><span>OTP Auth</span></button>
+          </div>
+        </div>
+
+        <!-- Payment Flow -->
+        <div class="nav-group" id="ng-payment">
+          <div class="nav-group-hdr" onclick="toggleGroup('payment')">
+            <div class="nav-group-left">
+              <div class="nav-group-dot"></div>
+              <span class="nav-group-name">Payment Flow</span>
+            </div>
+            <div class="nav-group-right">
+              <span class="nav-group-badge">7</span>
+              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="nav-group-body" id="ngb-payment">
+            <button class="qbtn" data-screen="home" onclick="jumpTo('home')"><span class="qbtn-num">05</span><span>Home</span></button>
+            <button class="qbtn" data-screen="new-payment" onclick="jumpTo('new-payment')"><span class="qbtn-num">06</span><span>New Payment</span></button>
+            <button class="qbtn" data-screen="qr-scan" onclick="jumpTo('qr-scan')"><span class="qbtn-num">07</span><span>QR Scanner</span></button>
+            <button class="qbtn" data-screen="verify" onclick="jumpTo('verify')"><span class="qbtn-num">08</span><span>Verify Identity</span></button>
+            <button class="qbtn" data-screen="balance" onclick="jumpTo('balance')"><span class="qbtn-num">09</span><span>Balance</span></button>
+            <button class="qbtn" data-screen="enter-amount" onclick="jumpTo('enter-amount')"><span class="qbtn-num">10</span><span>Enter Amount</span></button>
+            <button class="qbtn" data-screen="transfer-success" onclick="jumpTo('transfer-success')"><span class="qbtn-num">11</span><span>Transfer Success</span></button>
+          </div>
+        </div>
+
+        <!-- Limit Management -->
+        <div class="nav-group" id="ng-limit">
+          <div class="nav-group-hdr" onclick="toggleGroup('limit')">
+            <div class="nav-group-left">
+              <div class="nav-group-dot"></div>
+              <span class="nav-group-name">Limit Management</span>
+            </div>
+            <div class="nav-group-right">
+              <span class="nav-group-badge">9</span>
+              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="nav-group-body" id="ngb-limit">
+            <button class="qbtn" data-screen="approaching-limit" onclick="jumpTo('approaching-limit')"><span class="qbtn-num">12</span><span>Approaching Limit</span></button>
+            <button class="qbtn" data-screen="limit-reached" onclick="jumpTo('limit-reached')"><span class="qbtn-num">13</span><span>Limit Reached</span></button>
+            <button class="qbtn" data-screen="home-paused" onclick="jumpTo('home-paused')"><span class="qbtn-num">14</span><span>Home (Paused)</span></button>
+            <button class="qbtn" data-screen="scan-receipt" onclick="jumpTo('scan-receipt')"><span class="qbtn-num">15</span><span>Scan Receipt</span></button>
+            <button class="qbtn" data-screen="scan-receipt-done" onclick="jumpTo('scan-receipt-done')"><span class="qbtn-num">16</span><span>Scan Receipt (Done)</span></button>
+            <button class="qbtn" data-screen="verification" onclick="jumpTo('verification')"><span class="qbtn-num">17</span><span>Verification</span></button>
+            <button class="qbtn" data-screen="home-pending" onclick="jumpTo('home-pending')"><span class="qbtn-num">18</span><span>Home (Pending)</span></button>
+            <button class="qbtn" data-screen="reset-limit" onclick="jumpTo('reset-limit')"><span class="qbtn-num">19</span><span>Reset Daily Limit</span></button>
+            <button class="qbtn" data-screen="receipt-details" onclick="jumpTo('receipt-details')"><span class="qbtn-num">20</span><span>Receipt Details</span></button>
+          </div>
+        </div>
+
+        <!-- Main Tabs -->
+        <div class="nav-group" id="ng-tabs">
+          <div class="nav-group-hdr" onclick="toggleGroup('tabs')">
+            <div class="nav-group-left">
+              <div class="nav-group-dot"></div>
+              <span class="nav-group-name">Main Tabs</span>
+            </div>
+            <div class="nav-group-right">
+              <span class="nav-group-badge">6</span>
+              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="nav-group-body" id="ngb-tabs">
+            <button class="qbtn" data-screen="tab-history" onclick="jumpTo('tab-history')"><span class="qbtn-num">21</span><span>History</span></button>
+            <button class="qbtn" data-screen="tab-history-empty" onclick="jumpTo('tab-history-empty')"><span class="qbtn-num">22</span><span>History (empty)</span></button>
+            <button class="qbtn" data-screen="tab-search" onclick="jumpTo('tab-search')"><span class="qbtn-num">23</span><span>Search</span></button>
+            <button class="qbtn" data-screen="tab-search-empty" onclick="jumpTo('tab-search-empty')"><span class="qbtn-num">24</span><span>Search (empty)</span></button>
+            <button class="qbtn" data-screen="tab-settings" onclick="jumpTo('tab-settings')"><span class="qbtn-num">25</span><span>Settings</span></button>
+            <button class="qbtn" data-screen="driver-profile" onclick="jumpTo('driver-profile')"><span class="qbtn-num">26</span><span>Driver Profile</span></button>
+          </div>
+        </div>
+
+        <div class="nav-group" id="ng-settings-flow">
+          <div class="nav-group-hdr" onclick="toggleGroup('settings-flow')">
+            <div class="nav-group-left">
+              <div class="nav-group-dot"></div>
+              <span class="nav-group-name">Settings Flow</span>
+            </div>
+            <div class="nav-group-right">
+              <span class="nav-group-badge">4</span>
+              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="nav-group-body" id="ngb-settings-flow">
+            <button class="qbtn" data-screen="settings-account" onclick="jumpTo('settings-account')"><span class="qbtn-num">27</span><span>Account</span></button>
+            <button class="qbtn" data-screen="settings-notifications" onclick="jumpTo('settings-notifications')"><span class="qbtn-num">28</span><span>Notifications</span></button>
+            <button class="qbtn" data-screen="settings-language" onclick="jumpTo('settings-language')"><span class="qbtn-num">29</span><span>Language</span></button>
+            <button class="qbtn" data-screen="settings-help" onclick="jumpTo('settings-help')"><span class="qbtn-num">30</span><span>Help & Support</span></button>
+          </div>
+        </div>
+
+      </div>
+      <div class="controls">
+        <button class="ctrl-btn" id="btn-back" onclick="goBack()" style="display:none">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M8 10L3 6l5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back
+        </button>
+        <button class="ctrl-btn" onclick="resetAll()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3V6H7M2 9V6H5M2 5C2.5 3.3 4 2 6 2c1.5 0 2.8.7 3.7 1.8M10 7c-.5 1.7-2 3-4 3-1.5 0-2.8-.7-3.7-1.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Reset
+        </button>
+      </div>
     </div>
-  </div>
+    </div><!-- /z-index wrapper -->
+  </div><!-- /split-left -->
+
+  <!-- SPLIT RIGHT -->
+  <div class="split-right">
 
   <!-- PHONE -->
   <div class="phone-wrap">
+    <div class="phone-scaler" id="phone-scaler">
     <div class="live-badge">Live Prototype</div>
     <div class="phone" id="phone">
 
@@ -1806,13 +2109,13 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <!-- ══ SCREEN 15: HISTORY ══ -->
     <div class="screen" id="screen-tab-history">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
-      <div class="hist-body">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-          <div class="tab-page-title" style="margin-bottom:0;">History</div>
-          <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="navTap('search')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#1d1e25" stroke-width="1.8" stroke-opacity=".65"/><path d="M16.5 16.5L21 21" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-opacity=".65"/></svg>
-          </div>
+      <div class="tab-title-bar">
+        <div class="tab-page-title">History</div>
+        <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="navTap('search')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#1d1e25" stroke-width="1.8" stroke-opacity=".65"/><path d="M16.5 16.5L21 21" stroke="#1d1e25" stroke-width="1.8" stroke-linecap="round" stroke-opacity=".65"/></svg>
         </div>
+      </div>
+      <div class="hist-body">
         <!-- Stats card -->
         <div class="hist-stats-card">
           <div class="hist-stat">
@@ -1922,9 +2225,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <!-- ══ SCREEN 16B: HISTORY EMPTY ══ -->
     <div class="screen" id="screen-tab-history-empty">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
-      <div class="hist-body" style="display:flex;flex-direction:column;">
-        <div class="tab-page-title">History</div>
-      </div>
+      <div class="tab-title-bar"><div class="tab-page-title">History</div></div>
       <div class="empty-wrap">
         <img src="Assets/history empty.svg" width="64" height="64" style="display:block;">
         <div class="empty-h">You're one step away!</div>
@@ -1941,12 +2242,14 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <!-- ══ SCREEN 17: SEARCH ══ -->
     <div class="screen" id="screen-tab-search">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
-      <div class="st-body">
-        <div class="tab-page-title">Search</div>
-        <div class="st-search-wrap">
+      <div class="tab-title-bar"><div class="tab-page-title">Search</div></div>
+      <div class="st-search-bar">
+        <div class="st-search-wrap" style="margin-bottom:0;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="11" cy="11" r="7" stroke="#575757" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="#575757" stroke-width="1.8" stroke-linecap="round"/></svg>
           <input class="st-search-input" type="text" placeholder="Search by name or ID…">
         </div>
+      </div>
+      <div class="st-body">
         <div class="st-section-lbl">Recent Drivers</div>
         <div class="st-drv-card" onclick="goTo('driver-profile')">
           <div class="st-drv-av"><img src="Assets/Avatar.svg" alt=""></div>
@@ -1996,7 +2299,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
       <div class="tab-bottom-nav">
         <div class="tab-item" onclick="navTap('home')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="32 12 24 24" fill="none"><path d="M40.52 14.8399L35.13 19.0399C34.23 19.7399 33.5 21.2299 33.5 22.3599V29.7699C33.5 32.0899 35.39 33.9899 37.71 33.9899H49.29C51.61 33.9899 53.5 32.0899 53.5 29.7799V22.4999C53.5 21.2899 52.69 19.7399 51.7 19.0499L45.52 14.7199C44.12 13.7399 41.87 13.7899 40.52 14.8399Z" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43.5 29.99V26.99" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Home</span></div>
         <div class="tab-item active" onclick="navTap('search')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="128 12 24 24" fill="none"><path d="M139 33C144.247 33 148.5 28.7467 148.5 23.5C148.5 18.2533 144.247 14 139 14C133.753 14 129.5 18.2533 129.5 23.5C129.5 28.7467 133.753 33 139 33Z" fill="#1d1e25"/><path d="M148.801 34.0001C148.621 34.0001 148.441 33.9301 148.311 33.8001L146.451 31.9401C146.181 31.6701 146.181 31.2301 146.451 30.9501C146.721 30.6801 147.161 30.6801 147.441 30.9501L149.301 32.8101C149.571 33.0801 149.571 33.5201 149.301 33.8001C149.161 33.9301 148.981 34.0001 148.801 34.0001Z" fill="#1d1e25"/></svg></div><span class="tab-item-lbl">Search</span></div>
-        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1D1E25"/><path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1D1E25"/><path d="M19.57 4.5C18.91 4.01 17.96 4.48 17.96 5.31V5.41C17.96 6.58 17.12 7.66 15.95 7.78C14.6 7.92 13.46 6.86 13.46 5.54V4.5C13.46 3.95 13.01 3.5 12.46 3.5H11.54C10.99 3.5 10.54 3.95 10.54 4.5V5.54C10.54 6.33 10.13 7.03 9.51 7.42C9.42 7.48 9.32 7.53 9.22 7.58C9.13 7.63 9.03 7.67 8.92 7.7C8.8 7.74 8.67 7.77 8.53 7.78C8.37 7.8 8.21 7.8 8.05 7.78C7.91 7.77 7.78 7.74 7.66 7.7C7.56 7.67 7.46 7.63 7.36 7.58C7.26 7.53 7.16 7.48 7.07 7.42C6.44 6.98 6.04 6.22 6.04 5.41V5.31C6.04 4.54 5.22 4.08 4.57 4.41C4.5 4.45 4.47 4.47 4.43 4.5C4.05 4.8 3.8 5.05 3.59 5.32C3.19 5.87 2.95 6.33 2.79 6.72C2.69 7.02 2.56 7.61 2.52 7.95C2.51 8.09 2.5 8.23 2.5 8.37V17.13C2.5 19.82 4.68 22 7.37 22H16.63C19.32 22 21.5 19.82 21.5 17.13V8.37C21.5 6.78 20.74 5.39 19.57 4.5ZM12 17.42H7.36C6.95 17.42 6.61 17.08 6.61 16.67C6.61 16.25 6.95 15.91 7.36 15.91H12C12.42 15.91 12.75 16.25 12.75 16.67C12.75 17.08 12.42 17.42 12 17.42ZM14.78 13.71H7.36C6.95 13.71 6.61 13.37 6.61 12.96C6.61 12.54 6.95 12.2 7.36 12.2H14.78C15.2 12.2 15.54 12.54 15.54 12.96C15.54 13.37 15.2 13.71 14.78 13.71Z" fill="#1D1E25"/></svg></div><span class="tab-item-lbl">History</span></div>
+        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 13H15.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 17H12.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 3.5C19.83 3.68 21.5 4.95 21.5 9.65V15.83C21.5 19.95 20.5 22.01 15.5 22.01H9.5C4.5 22.01 3.5 19.95 3.5 15.83V9.65C3.5 4.95 5.17 3.69 8.5 3.5H16.5Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">History</span></div>
         <div class="tab-item" onclick="navTap('settings')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="319 12 24 24" fill="none"><path d="M331.5 27C333.157 27 334.5 25.6569 334.5 24C334.5 22.3431 333.157 21 331.5 21C329.843 21 328.5 22.3431 328.5 24C328.5 25.6569 329.843 27 331.5 27Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M321.5 24.8799V23.1199C321.5 22.0799 322.35 21.2199 323.4 21.2199C325.21 21.2199 325.95 19.9399 325.04 18.3699C324.52 17.4699 324.83 16.2999 325.74 15.7799L327.47 14.7899C328.26 14.3199 329.28 14.5999 329.75 15.3899L329.86 15.5799C330.76 17.1499 332.24 17.1499 333.15 15.5799L333.26 15.3899C333.73 14.5999 334.75 14.3199 335.54 14.7899L337.27 15.7799C338.18 16.2999 338.49 17.4699 337.97 18.3699C337.06 19.9399 337.8 21.2199 339.61 21.2199C340.65 21.2199 341.51 22.0699 341.51 23.1199V24.8799C341.51 25.9199 340.66 26.7799 339.61 26.7799C337.8 26.7799 337.06 28.0599 337.97 29.6299C338.49 30.5399 338.18 31.6999 337.27 32.2199L335.54 33.2099C334.75 33.6799 333.73 33.3999 333.26 32.6099L333.15 32.4199C332.25 30.8499 330.77 30.8499 329.86 32.4199L329.75 32.6099C329.28 33.3999 328.26 33.6799 327.47 33.2099L325.74 32.2199C324.83 31.6999 324.52 30.5299 325.04 29.6299C325.95 28.0599 325.21 26.7799 323.4 26.7799C322.35 26.7799 321.5 25.9199 321.5 24.8799Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Settings</span></div>
       </div>
     </div>
@@ -2004,12 +2307,14 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
     <!-- ══ SCREEN 18: SEARCH EMPTY ══ -->
     <div class="screen" id="screen-tab-search-empty">
       <div class="sbar" style="background:#f7f6fa;"><span class="sbar-time" style="color:#1d1e25">9:30</span><div class="sbar-icons"><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1d1e25"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1d1e25"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#1d1e25"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1d1e25" opacity=".3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="#1d1e25" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#1d1e25"/><path d="M23 4.5v3A1.5 1.5 0 0023 4.5z" fill="#1d1e25" fill-opacity=".4"/></svg></div></div>
-      <div class="st-body">
-        <div class="tab-page-title">Search</div>
-        <div class="st-search-wrap">
+      <div class="tab-title-bar"><div class="tab-page-title">Search</div></div>
+      <div class="st-search-bar">
+        <div class="st-search-wrap" style="margin-bottom:0;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><circle cx="11" cy="11" r="7" stroke="#575757" stroke-width="1.8"/><path d="M16.5 16.5L21 21" stroke="#575757" stroke-width="1.8" stroke-linecap="round"/></svg>
           <input class="st-search-input" type="text" placeholder="Search by name or ID…">
         </div>
+      </div>
+      <div class="st-body">
         <div class="st-section-lbl">Recent Drivers</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;width:100%;padding-top:60px;">
           <img src="Assets/search empty.svg" width="64" height="64" style="display:block;">
@@ -2026,7 +2331,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
       <div class="tab-bottom-nav">
         <div class="tab-item" onclick="navTap('home')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="32 12 24 24" fill="none"><path d="M40.52 14.8399L35.13 19.0399C34.23 19.7399 33.5 21.2299 33.5 22.3599V29.7699C33.5 32.0899 35.39 33.9899 37.71 33.9899H49.29C51.61 33.9899 53.5 32.0899 53.5 29.7799V22.4999C53.5 21.2899 52.69 19.7399 51.7 19.0499L45.52 14.7199C44.12 13.7399 41.87 13.7899 40.52 14.8399Z" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43.5 29.99V26.99" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Home</span></div>
         <div class="tab-item active" onclick="navTap('search')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="128 12 24 24" fill="none"><path d="M139 33C144.247 33 148.5 28.7467 148.5 23.5C148.5 18.2533 144.247 14 139 14C133.753 14 129.5 18.2533 129.5 23.5C129.5 28.7467 133.753 33 139 33Z" fill="#1d1e25"/><path d="M148.801 34.0001C148.621 34.0001 148.441 33.9301 148.311 33.8001L146.451 31.9401C146.181 31.6701 146.181 31.2301 146.451 30.9501C146.721 30.6801 147.161 30.6801 147.441 30.9501L149.301 32.8101C149.571 33.0801 149.571 33.5201 149.301 33.8001C149.161 33.9301 148.981 34.0001 148.801 34.0001Z" fill="#1d1e25"/></svg></div><span class="tab-item-lbl">Search</span></div>
-        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1D1E25"/><path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1D1E25"/><path d="M19.57 4.5C18.91 4.01 17.96 4.48 17.96 5.31V5.41C17.96 6.58 17.12 7.66 15.95 7.78C14.6 7.92 13.46 6.86 13.46 5.54V4.5C13.46 3.95 13.01 3.5 12.46 3.5H11.54C10.99 3.5 10.54 3.95 10.54 4.5V5.54C10.54 6.33 10.13 7.03 9.51 7.42C9.42 7.48 9.32 7.53 9.22 7.58C9.13 7.63 9.03 7.67 8.92 7.7C8.8 7.74 8.67 7.77 8.53 7.78C8.37 7.8 8.21 7.8 8.05 7.78C7.91 7.77 7.78 7.74 7.66 7.7C7.56 7.67 7.46 7.63 7.36 7.58C7.26 7.53 7.16 7.48 7.07 7.42C6.44 6.98 6.04 6.22 6.04 5.41V5.31C6.04 4.54 5.22 4.08 4.57 4.41C4.5 4.45 4.47 4.47 4.43 4.5C4.05 4.8 3.8 5.05 3.59 5.32C3.19 5.87 2.95 6.33 2.79 6.72C2.69 7.02 2.56 7.61 2.52 7.95C2.51 8.09 2.5 8.23 2.5 8.37V17.13C2.5 19.82 4.68 22 7.37 22H16.63C19.32 22 21.5 19.82 21.5 17.13V8.37C21.5 6.78 20.74 5.39 19.57 4.5ZM12 17.42H7.36C6.95 17.42 6.61 17.08 6.61 16.67C6.61 16.25 6.95 15.91 7.36 15.91H12C12.42 15.91 12.75 16.25 12.75 16.67C12.75 17.08 12.42 17.42 12 17.42ZM14.78 13.71H7.36C6.95 13.71 6.61 13.37 6.61 12.96C6.61 12.54 6.95 12.2 7.36 12.2H14.78C15.2 12.2 15.54 12.54 15.54 12.96C15.54 13.37 15.2 13.71 14.78 13.71Z" fill="#1D1E25"/></svg></div><span class="tab-item-lbl">History</span></div>
+        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 13H15.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 17H12.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 3.5C19.83 3.68 21.5 4.95 21.5 9.65V15.83C21.5 19.95 20.5 22.01 15.5 22.01H9.5C4.5 22.01 3.5 19.95 3.5 15.83V9.65C3.5 4.95 5.17 3.69 8.5 3.5H16.5Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">History</span></div>
         <div class="tab-item" onclick="navTap('settings')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="319 12 24 24" fill="none"><path d="M331.5 27C333.157 27 334.5 25.6569 334.5 24C334.5 22.3431 333.157 21 331.5 21C329.843 21 328.5 22.3431 328.5 24C328.5 25.6569 329.843 27 331.5 27Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M321.5 24.8799V23.1199C321.5 22.0799 322.35 21.2199 323.4 21.2199C325.21 21.2199 325.95 19.9399 325.04 18.3699C324.52 17.4699 324.83 16.2999 325.74 15.7799L327.47 14.7899C328.26 14.3199 329.28 14.5999 329.75 15.3899L329.86 15.5799C330.76 17.1499 332.24 17.1499 333.15 15.5799L333.26 15.3899C333.73 14.5999 334.75 14.3199 335.54 14.7899L337.27 15.7799C338.18 16.2999 338.49 17.4699 337.97 18.3699C337.06 19.9399 337.8 21.2199 339.61 21.2199C340.65 21.2199 341.51 22.0699 341.51 23.1199V24.8799C341.51 25.9199 340.66 26.7799 339.61 26.7799C337.8 26.7799 337.06 28.0599 337.97 29.6299C338.49 30.5399 338.18 31.6999 337.27 32.2199L335.54 33.2099C334.75 33.6799 333.73 33.3999 333.26 32.6099L333.15 32.4199C332.25 30.8499 330.77 30.8499 329.86 32.4199L329.75 32.6099C329.28 33.3999 328.26 33.6799 327.47 33.2099L325.74 32.2199C324.83 31.6999 324.52 30.5299 325.04 29.6299C325.95 28.0599 325.21 26.7799 323.4 26.7799C322.35 26.7799 321.5 25.9199 321.5 24.8799Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Settings</span></div>
       </div>
     </div>
@@ -2090,7 +2395,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
       <div class="tab-bottom-nav">
         <div class="tab-item" onclick="navTap('home')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="32 12 24 24" fill="none"><path d="M40.52 14.8399L35.13 19.0399C34.23 19.7399 33.5 21.2299 33.5 22.3599V29.7699C33.5 32.0899 35.39 33.9899 37.71 33.9899H49.29C51.61 33.9899 53.5 32.0899 53.5 29.7799V22.4999C53.5 21.2899 52.69 19.7399 51.7 19.0499L45.52 14.7199C44.12 13.7399 41.87 13.7899 40.52 14.8399Z" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43.5 29.99V26.99" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Home</span></div>
         <div class="tab-item" onclick="navTap('search')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="128 12 24 24" fill="none"><path d="M139 33C144.247 33 148.5 28.7467 148.5 23.5C148.5 18.2533 144.247 14 139 14C133.753 14 129.5 18.2533 129.5 23.5C129.5 28.7467 133.753 33 139 33Z" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M149.5 34L147.5 32" stroke="#1d1e25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">Search</span></div>
-        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1D1E25"/><path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1D1E25"/><path d="M19.57 4.5C18.91 4.01 17.96 4.48 17.96 5.31V5.41C17.96 6.58 17.12 7.66 15.95 7.78C14.6 7.92 13.46 6.86 13.46 5.54V4.5C13.46 3.95 13.01 3.5 12.46 3.5H11.54C10.99 3.5 10.54 3.95 10.54 4.5V5.54C10.54 6.33 10.13 7.03 9.51 7.42C9.42 7.48 9.32 7.53 9.22 7.58C9.13 7.63 9.03 7.67 8.92 7.7C8.8 7.74 8.67 7.77 8.53 7.78C8.37 7.8 8.21 7.8 8.05 7.78C7.91 7.77 7.78 7.74 7.66 7.7C7.56 7.67 7.46 7.63 7.36 7.58C7.26 7.53 7.16 7.48 7.07 7.42C6.44 6.98 6.04 6.22 6.04 5.41V5.31C6.04 4.54 5.22 4.08 4.57 4.41C4.5 4.45 4.47 4.47 4.43 4.5C4.05 4.8 3.8 5.05 3.59 5.32C3.19 5.87 2.95 6.33 2.79 6.72C2.69 7.02 2.56 7.61 2.52 7.95C2.51 8.09 2.5 8.23 2.5 8.37V17.13C2.5 19.82 4.68 22 7.37 22H16.63C19.32 22 21.5 19.82 21.5 17.13V8.37C21.5 6.78 20.74 5.39 19.57 4.5ZM12 17.42H7.36C6.95 17.42 6.61 17.08 6.61 16.67C6.61 16.25 6.95 15.91 7.36 15.91H12C12.42 15.91 12.75 16.25 12.75 16.67C12.75 17.08 12.42 17.42 12 17.42ZM14.78 13.71H7.36C6.95 13.71 6.61 13.37 6.61 12.96C6.61 12.54 6.95 12.2 7.36 12.2H14.78C15.2 12.2 15.54 12.54 15.54 12.96C15.54 13.37 15.2 13.71 14.78 13.71Z" fill="#1D1E25"/></svg></div><span class="tab-item-lbl">History</span></div>
+        <div class="tab-item" onclick="navTap('history')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 2V5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 13H15.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 17H12.5" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 3.5C19.83 3.68 21.5 4.95 21.5 9.65V15.83C21.5 19.95 20.5 22.01 15.5 22.01H9.5C4.5 22.01 3.5 19.95 3.5 15.83V9.65C3.5 4.95 5.17 3.69 8.5 3.5H16.5Z" stroke="#1d1e25" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="tab-item-lbl">History</span></div>
         <div class="tab-item active" onclick="navTap('settings')"><div class="tab-item-icon"><svg width="24" height="24" viewBox="319 12 24 24" fill="none"><path d="M339.6 21.2199C337.79 21.2199 337.05 19.9399 337.95 18.3699C338.47 17.4599 338.16 16.2999 337.25 15.7799L335.52 14.7899C334.73 14.3199 333.71 14.5999 333.24 15.3899L333.13 15.5799C332.23 17.1499 330.75 17.1499 329.84 15.5799L329.73 15.3899C329.28 14.5999 328.26 14.3199 327.47 14.7899L325.74 15.7799C324.83 16.2999 324.52 17.4699 325.04 18.3799C325.95 19.9399 325.21 21.2199 323.4 21.2199C322.36 21.2199 321.5 22.0699 321.5 23.1199V24.8799C321.5 25.9199 322.35 26.7799 323.4 26.7799C325.21 26.7799 325.95 28.0599 325.04 29.6299C324.52 30.5399 324.83 31.6999 325.74 32.2199L327.47 33.2099C328.26 33.6799 329.28 33.3999 329.75 32.6099L329.86 32.4199C330.76 30.8499 332.24 30.8499 333.15 32.4199L333.26 32.6099C333.73 33.3999 334.75 33.6799 335.54 33.2099L337.27 32.2199C338.18 31.6999 338.49 30.5299 337.97 29.6299C337.06 28.0599 337.8 26.7799 339.61 26.7799C340.65 26.7799 341.51 25.9299 341.51 24.8799V23.1199C341.5 22.0799 340.65 21.2199 339.6 21.2199ZM331.5 27.2499C329.71 27.2499 328.25 25.7899 328.25 23.9999C328.25 22.2099 329.71 20.7499 331.5 20.7499C333.29 20.7499 334.75 22.2099 334.75 23.9999C334.75 25.7899 333.29 27.2499 331.5 27.2499Z" fill="#1D1E25"/></svg></div><span class="tab-item-lbl">Settings</span></div>
       </div>
     </div>
@@ -2886,147 +3191,10 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
   </div>
 
     </div><!-- /phone -->
+    </div><!-- /phone-scaler -->
   </div><!-- /phone-wrap -->
 
-  <!-- RIGHT PANEL -->
-  <div class="info-panel right">
-    <div class="nav-card">
-      <div class="nav-card-header">
-        <span class="nav-card-title">Screens</span>
-        <span class="nav-card-count">30</span>
-      </div>
-      <div class="nav-groups" id="nav-groups">
-
-        <!-- Onboarding -->
-        <div class="nav-group" id="ng-onboarding">
-          <div class="nav-group-hdr has-active" onclick="toggleGroup('onboarding')">
-            <div class="nav-group-left">
-              <div class="nav-group-dot"></div>
-              <span class="nav-group-name">Onboarding</span>
-            </div>
-            <div class="nav-group-right">
-              <span class="nav-group-badge">4</span>
-              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-          </div>
-          <div class="nav-group-body open" id="ngb-onboarding">
-            <button class="qbtn active" data-screen="splash" onclick="jumpTo('splash')"><span class="qbtn-num">01</span><span>Splash</span></button>
-            <button class="qbtn" data-screen="role" onclick="jumpTo('role')"><span class="qbtn-num">02</span><span>Select Role</span></button>
-            <button class="qbtn" data-screen="signin" onclick="jumpTo('signin')"><span class="qbtn-num">03</span><span>Sign In</span></button>
-            <button class="qbtn" data-screen="otp" onclick="jumpTo('otp')"><span class="qbtn-num">04</span><span>OTP Auth</span></button>
-          </div>
-        </div>
-
-        <!-- Payment Flow -->
-        <div class="nav-group" id="ng-payment">
-          <div class="nav-group-hdr" onclick="toggleGroup('payment')">
-            <div class="nav-group-left">
-              <div class="nav-group-dot"></div>
-              <span class="nav-group-name">Payment Flow</span>
-            </div>
-            <div class="nav-group-right">
-              <span class="nav-group-badge">7</span>
-              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-          </div>
-          <div class="nav-group-body" id="ngb-payment">
-            <button class="qbtn" data-screen="home" onclick="jumpTo('home')"><span class="qbtn-num">05</span><span>Home</span></button>
-            <button class="qbtn" data-screen="new-payment" onclick="jumpTo('new-payment')"><span class="qbtn-num">06</span><span>New Payment</span></button>
-            <button class="qbtn" data-screen="qr-scan" onclick="jumpTo('qr-scan')"><span class="qbtn-num">07</span><span>QR Scanner</span></button>
-            <button class="qbtn" data-screen="verify" onclick="jumpTo('verify')"><span class="qbtn-num">08</span><span>Verify Identity</span></button>
-            <button class="qbtn" data-screen="balance" onclick="jumpTo('balance')"><span class="qbtn-num">09</span><span>Balance</span></button>
-            <button class="qbtn" data-screen="enter-amount" onclick="jumpTo('enter-amount')"><span class="qbtn-num">10</span><span>Enter Amount</span></button>
-            <button class="qbtn" data-screen="transfer-success" onclick="jumpTo('transfer-success')"><span class="qbtn-num">11</span><span>Transfer Success</span></button>
-          </div>
-        </div>
-
-        <!-- Limit Management -->
-        <div class="nav-group" id="ng-limit">
-          <div class="nav-group-hdr" onclick="toggleGroup('limit')">
-            <div class="nav-group-left">
-              <div class="nav-group-dot"></div>
-              <span class="nav-group-name">Limit Management</span>
-            </div>
-            <div class="nav-group-right">
-              <span class="nav-group-badge">9</span>
-              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-          </div>
-          <div class="nav-group-body" id="ngb-limit">
-            <button class="qbtn" data-screen="approaching-limit" onclick="jumpTo('approaching-limit')"><span class="qbtn-num">12</span><span>Approaching Limit</span></button>
-            <button class="qbtn" data-screen="limit-reached" onclick="jumpTo('limit-reached')"><span class="qbtn-num">13</span><span>Limit Reached</span></button>
-            <button class="qbtn" data-screen="home-paused" onclick="jumpTo('home-paused')"><span class="qbtn-num">14</span><span>Home (Paused)</span></button>
-            <button class="qbtn" data-screen="scan-receipt" onclick="jumpTo('scan-receipt')"><span class="qbtn-num">15</span><span>Scan Receipt</span></button>
-            <button class="qbtn" data-screen="scan-receipt-done" onclick="jumpTo('scan-receipt-done')"><span class="qbtn-num">16</span><span>Scan Receipt (Done)</span></button>
-            <button class="qbtn" data-screen="verification" onclick="jumpTo('verification')"><span class="qbtn-num">17</span><span>Verification</span></button>
-            <button class="qbtn" data-screen="home-pending" onclick="jumpTo('home-pending')"><span class="qbtn-num">18</span><span>Home (Pending)</span></button>
-            <button class="qbtn" data-screen="reset-limit" onclick="jumpTo('reset-limit')"><span class="qbtn-num">19</span><span>Reset Daily Limit</span></button>
-            <button class="qbtn" data-screen="receipt-details" onclick="jumpTo('receipt-details')"><span class="qbtn-num">20</span><span>Receipt Details</span></button>
-          </div>
-        </div>
-
-        <!-- Main Tabs -->
-        <div class="nav-group" id="ng-tabs">
-          <div class="nav-group-hdr" onclick="toggleGroup('tabs')">
-            <div class="nav-group-left">
-              <div class="nav-group-dot"></div>
-              <span class="nav-group-name">Main Tabs</span>
-            </div>
-            <div class="nav-group-right">
-              <span class="nav-group-badge">6</span>
-              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-          </div>
-          <div class="nav-group-body" id="ngb-tabs">
-            <button class="qbtn" data-screen="tab-history" onclick="jumpTo('tab-history')"><span class="qbtn-num">21</span><span>History</span></button>
-            <button class="qbtn" data-screen="tab-history-empty" onclick="jumpTo('tab-history-empty')"><span class="qbtn-num">22</span><span>History (empty)</span></button>
-            <button class="qbtn" data-screen="tab-search" onclick="jumpTo('tab-search')"><span class="qbtn-num">23</span><span>Search</span></button>
-            <button class="qbtn" data-screen="tab-search-empty" onclick="jumpTo('tab-search-empty')"><span class="qbtn-num">24</span><span>Search (empty)</span></button>
-            <button class="qbtn" data-screen="tab-settings" onclick="jumpTo('tab-settings')"><span class="qbtn-num">25</span><span>Settings</span></button>
-            <button class="qbtn" data-screen="driver-profile" onclick="jumpTo('driver-profile')"><span class="qbtn-num">26</span><span>Driver Profile</span></button>
-          </div>
-        </div>
-
-        <div class="nav-group" id="ng-settings-flow">
-          <div class="nav-group-hdr" onclick="toggleGroup('settings-flow')">
-            <div class="nav-group-left">
-              <div class="nav-group-dot"></div>
-              <span class="nav-group-name">Settings Flow</span>
-            </div>
-            <div class="nav-group-right">
-              <span class="nav-group-badge">4</span>
-              <div class="nav-group-chevron"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            </div>
-          </div>
-          <div class="nav-group-body" id="ngb-settings-flow">
-            <button class="qbtn" data-screen="settings-account" onclick="jumpTo('settings-account')"><span class="qbtn-num">27</span><span>Account</span></button>
-            <button class="qbtn" data-screen="settings-notifications" onclick="jumpTo('settings-notifications')"><span class="qbtn-num">28</span><span>Notifications</span></button>
-            <button class="qbtn" data-screen="settings-language" onclick="jumpTo('settings-language')"><span class="qbtn-num">29</span><span>Language</span></button>
-            <button class="qbtn" data-screen="settings-help" onclick="jumpTo('settings-help')"><span class="qbtn-num">30</span><span>Help & Support</span></button>
-          </div>
-        </div>
-
-      </div>
-      <div class="controls">
-        <button class="ctrl-btn" id="btn-back" onclick="goBack()" style="display:none">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M8 10L3 6l5-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Back
-        </button>
-        <button class="ctrl-btn" onclick="resetAll()">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3V6H7M2 9V6H5M2 5C2.5 3.3 4 2 6 2c1.5 0 2.8.7 3.7 1.8M10 7c-.5 1.7-2 3-4 3-1.5 0-2.8-.7-3.7-1.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Reset
-        </button>
-      </div>
-      <div class="kb-hints">
-        <div class="kb-hint"><span class="kb-key">←</span><span>Prev</span></div>
-        <div class="kb-hint"><span class="kb-key">→</span><span>Next</span></div>
-        <div class="kb-hint"><span class="kb-key">Esc</span><span>Back</span></div>
-      </div>
-    </div>
-  </div>
-
-
-  
+  </div><!-- /split-right -->
 </div><!-- /app-shell -->
 
 <script>
@@ -3535,6 +3703,29 @@ androidKb.addEventListener("mousedown", (e) => {
 });
 
 updateOtpDisplay();
+
+/* ── Responsive phone scaling ── */
+function scalePhone() {
+  const scaler = document.getElementById('phone-scaler');
+  if (!scaler) return;
+  const wrap = scaler.closest('.split-right') || scaler.parentElement;
+  const padH = 48, padV = 100; /* 52px top badge clearance + 48px breathing room */
+  const availW = wrap.clientWidth  - padH;
+  const availH = wrap.clientHeight - padV;
+  const scaleW = availW / 375;
+  const scaleH = availH / 812;
+  const scale  = Math.min(scaleW, scaleH, 1);
+  scaler.style.transform = `scale(${scale})`;
+  /* Collapse the empty space left by CSS transform */
+  const excess = 812 * (1 - scale);
+  scaler.style.marginTop    = `-${excess / 2}px`;
+  scaler.style.marginBottom = `-${excess / 2}px`;
+  const excessW = 375 * (1 - scale);
+  scaler.style.marginLeft  = `-${excessW / 2}px`;
+  scaler.style.marginRight = `-${excessW / 2}px`;
+}
+scalePhone();
+window.addEventListener('resize', scalePhone);
 </script>
 </body>
 </html>

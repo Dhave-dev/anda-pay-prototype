@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=375, user-scalable=no">
+<style>
+body { background: #eee; margin: 0; font-family: sans-serif; height: 100vh; position: relative; }
+.android-kb {
+  position: absolute; bottom: 0; left: 0; width: 375px; height: 280px;
+  background: #f1f3f8; display: flex; flex-direction: column;
+  transform: translateY(100%); transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1);
+  z-index: 1000; padding: 4px; box-sizing: border-box;
+}
+.android-kb.show { transform: translateY(0); }
+.kb-row { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
+.kb-key {
+  background: #fff; border-radius: 6px; box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  height: 42px; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #1d1e25; font-weight: 400; cursor: pointer; user-select: none;
+  flex: 1; max-width: 32px;
+}
+.kb-key:active { background: #e0e2e8; }
+.kb-key.special { background: #dce1f0; max-width: 44px; }
+.kb-key.space { max-width: 150px; }
+.kb-key.action { background: #1976d2; color: #fff; max-width: 44px; }
+.kb-top { height: 40px; display: flex; align-items: center; padding: 0 10px; justify-content: space-between; font-size: 14px; font-weight: 600; color: #555; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+  <input type="text" id="test-input" placeholder="Focus me..." style="margin:20px; padding: 10px; width: 80%; font-size: 16px;">
+  
+  <div class="android-kb" id="android-kb">
+    <div class="kb-top">
+      <span><</span> <span>GIF</span> <span>📋</span> <span>⚙️</span> <span>...</span> <span>🎤</span>
+    </div>
+    <div class="kb-row">
+      <div class="kb-key" data-char="q">q</div><div class="kb-key" data-char="w">w</div><div class="kb-key" data-char="e">e</div><div class="kb-key" data-char="r">r</div><div class="kb-key" data-char="t">t</div><div class="kb-key" data-char="y">y</div><div class="kb-key" data-char="u">u</div><div class="kb-key" data-char="i">i</div><div class="kb-key" data-char="o">o</div><div class="kb-key" data-char="p">p</div>
+    </div>
+    <div class="kb-row" style="padding: 0 16px;">
+      <div class="kb-key" data-char="a">a</div><div class="kb-key" data-char="s">s</div><div class="kb-key" data-char="d">d</div><div class="kb-key" data-char="f">f</div><div class="kb-key" data-char="g">g</div><div class="kb-key" data-char="h">h</div><div class="kb-key" data-char="j">j</div><div class="kb-key" data-char="k">k</div><div class="kb-key" data-char="l">l</div>
+    </div>
+    <div class="kb-row">
+      <div class="kb-key special" data-action="shift">⇧</div><div class="kb-key" data-char="z">z</div><div class="kb-key" data-char="x">x</div><div class="kb-key" data-char="c">c</div><div class="kb-key" data-char="v">v</div><div class="kb-key" data-char="b">b</div><div class="kb-key" data-char="n">n</div><div class="kb-key" data-char="m">m</div><div class="kb-key special" data-action="backspace">⌫</div>
+    </div>
+    <div class="kb-row">
+      <div class="kb-key special" data-action="symbol">?123</div><div class="kb-key" data-char=",">,</div><div class="kb-key" data-char="globe">🌐</div><div class="kb-key space" data-char=" "></div><div class="kb-key" data-char=".">.</div><div class="kb-key action" data-action="search">🔍</div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('test-input');
+    const kb = document.getElementById('android-kb');
+    
+    input.addEventListener('focus', () => kb.classList.add('show'));
+    input.addEventListener('blur', () => kb.classList.remove('show'));
+    
+    kb.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // prevent blur
+      const key = e.target.closest('.kb-key');
+      if (!key) return;
+      
+      const char = key.getAttribute('data-char');
+      const action = key.getAttribute('data-action');
+      
+      if (char) {
+        input.value += char;
+      } else if (action === 'backspace') {
+        input.value = input.value.slice(0, -1);
+      } else if (action === 'search') {
+        kb.classList.remove('show');
+        input.blur();
+      }
+      
+      // trigger input event manually if needed
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  </script>
+</body>
+</html>
