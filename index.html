@@ -102,7 +102,7 @@ body::after{
 .phone-scaler{
   position:relative;
   transform-origin:center center;
-  width:375px;height:812px;flex-shrink:0;
+  width:375px;height:833px;flex-shrink:0;
 }
 .hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;position:relative;z-index:2;}
 .hero-section{margin-bottom:0;position:relative;z-index:2;}
@@ -114,8 +114,8 @@ body::after{
 .hero-divider{height:1px;background:rgba(255,255,255,.07);margin:0 0 20px;position:relative;z-index:2;}
 @media(max-width:900px){
   .app-shell{flex-direction:column;overflow-y:auto;height:auto;}
-  .split-left{width:100%;max-width:none;min-height:auto;padding:20px 20px 16px;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
-  .split-right{width:100%;min-height:600px;overflow:hidden;}
+  .split-right{order:-1;width:100%;min-height:600px;overflow:hidden;}
+  .split-left{order:1;width:100%;max-width:none;min-height:auto;padding:20px 20px 16px;border-right:none;border-top:1px solid rgba(255,255,255,.08);}
   .hero-top{margin-bottom:12px;}
   .flow-hint{max-width:100%;}
   .nav-groups{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
@@ -185,7 +185,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
   animation:livePulse 1.6s ease-in-out infinite;
 }
 .phone{
-  width:375px;height:812px;border-radius:44px;overflow:hidden;
+  width:375px;height:833px;border-radius:44px;overflow:hidden;
   position:relative;flex-shrink:0;z-index:1;
   box-shadow:
     0 0 0 10px #1c1e25,
@@ -198,7 +198,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 
 /* ── Screens ── */
 .screen{
-  position:absolute;inset:0;width:375px;height:812px;
+  position:absolute;inset:0;width:375px;height:833px;
   opacity:0;visibility:hidden;pointer-events:none;
   transform:translateX(0);will-change:transform,opacity;z-index:1;
 }
@@ -3713,11 +3713,11 @@ function scalePhone() {
   const availW = wrap.clientWidth  - padH;
   const availH = wrap.clientHeight - padV;
   const scaleW = availW / 375;
-  const scaleH = availH / 812;
+  const scaleH = availH / 833;
   const scale  = Math.min(scaleW, scaleH, 1);
   scaler.style.transform = `scale(${scale})`;
   /* Collapse the empty space left by CSS transform */
-  const excess = 812 * (1 - scale);
+  const excess = 833 * (1 - scale);
   scaler.style.marginTop    = `-${excess / 2}px`;
   scaler.style.marginBottom = `-${excess / 2}px`;
   const excessW = 375 * (1 - scale);
