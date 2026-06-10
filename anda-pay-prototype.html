@@ -54,8 +54,11 @@ body::after{
 /* M3 Fade-through — Tab switching */
 @keyframes m3FadeIn{from{opacity:0}to{opacity:1}}
 @keyframes m3FadeOut{from{opacity:1}to{opacity:0}}
-/* M3 Sheet enter */
+/* M3 Sheet enter/exit */
 @keyframes m3SheetEnter{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes m3SheetExit{from{transform:translateY(0)}to{transform:translateY(100%)}}
+/* Driver profile tab content fade */
+@keyframes dpTabIn{from{opacity:0}to{opacity:1}}
 
 /* ── Layout ── */
 .app-shell{
@@ -250,7 +253,7 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 #screen-splash{background:#0095a1;cursor:pointer;}
 .splash-bg-overlay{
   position:absolute;inset:0;
-  background:url('Onboadrign bg.png') center/cover no-repeat;
+  background:url('Assets/Onboadrign%20bg.svg') center/cover no-repeat;
   pointer-events:none;
 }
 .splash-logo{
@@ -1093,8 +1096,8 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 
 
 /* ── ANDROID KEYBOARD ── */
-.android-kb { position: absolute; bottom: 0; left: 0; width: 375px; height: 288px; background: #ebedf3; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1), visibility 0s 0.25s; z-index: 1000; padding: 6px 4px 10px; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; visibility: hidden; pointer-events: none; }
-.android-kb.show { transform: translateY(0); visibility: visible; pointer-events: auto; transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1), visibility 0s; }
+.android-kb { position: absolute; bottom: 0; left: 0; width: 375px; height: 288px; background: #ebedf3; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 200ms cubic-bezier(0.3,0,1,1), visibility 0s 200ms; z-index: 1000; padding: 6px 4px 10px; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; visibility: hidden; pointer-events: none; }
+.android-kb.show { transform: translateY(0); visibility: visible; pointer-events: auto; transition: transform 250ms cubic-bezier(0,0,0.2,1), visibility 0s; }
 .kb-top { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; margin-bottom: 6px; }
 .kb-top-icon { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; color: #444; }
 .kb-top-icon.blue-bg { background: #abc7fc; border-radius: 50%; }
@@ -3408,8 +3411,16 @@ function navTap(tab) {
 }
 
 function dpSwitchTab(tab) {
-  document.getElementById('dp-content-balance').style.display = tab === 'balance' ? '' : 'none';
-  document.getElementById('dp-content-history').style.display = tab === 'history' ? '' : 'none';
+  const balEl = document.getElementById('dp-content-balance');
+  const histEl = document.getElementById('dp-content-history');
+  const showEl = tab === 'balance' ? balEl : histEl;
+  const hideEl = tab === 'balance' ? histEl : balEl;
+  hideEl.style.display = 'none';
+  showEl.style.display = '';
+  showEl.style.animation = 'none';
+  void showEl.offsetWidth;
+  showEl.style.animation = 'dpTabIn 150ms cubic-bezier(0,0,0.2,1) both';
+  showEl.addEventListener('animationend', () => { showEl.style.animation = ''; }, {once:true});
   document.getElementById('dp-tab-balance').classList.toggle('active', tab === 'balance');
   document.getElementById('dp-tab-history').classList.toggle('active', tab === 'history');
 }
@@ -3436,7 +3447,12 @@ function openImageView() {
 }
 function closeImageView() {
   const overlay = document.getElementById('vi-overlay');
-  if (overlay) overlay.classList.remove('open');
+  if (!overlay) return;
+  overlay.style.animation = 'm3FadeOut 150ms cubic-bezier(0.3,0,1,1) both';
+  overlay.addEventListener('animationend', () => {
+    overlay.classList.remove('open');
+    overlay.style.animation = '';
+  }, {once:true});
 }
 
 /* ── Splash auto-advance ── */
