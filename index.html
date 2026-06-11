@@ -46,19 +46,19 @@ body::after{
 @keyframes phoneGlow{0%,100%{opacity:.6}50%{opacity:1}}
 @keyframes toastIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes toastOut{to{opacity:0;transform:translateY(12px)}}
-/* M3 Shared Axis — Horizontal */
-@keyframes m3EnterFwd{from{opacity:0;transform:translateX(375px)}to{opacity:1;transform:translateX(0)}}
-@keyframes m3ExitFwd{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-375px)}}
-@keyframes m3EnterBack{from{opacity:0;transform:translateX(-375px)}to{opacity:1;transform:translateX(0)}}
-@keyframes m3ExitBack{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(375px)}}
-/* M3 Fade-through — Tab switching */
-@keyframes m3FadeIn{from{opacity:0}to{opacity:1}}
-@keyframes m3FadeOut{from{opacity:1}to{opacity:0}}
-/* M3 Sheet enter/exit */
-@keyframes m3SheetEnter{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes m3SheetExit{from{transform:translateY(0)}to{transform:translateY(100%)}}
+/* M3 Shared Axis — Emphasized easing tokens */
+@keyframes m3EnterFwd  {from{opacity:0;transform:translateX(72px)} to{opacity:1;transform:translateX(0)}}
+@keyframes m3ExitFwd   {from{opacity:1;transform:translateX(0)}    to{opacity:0;transform:translateX(-52px)}}
+@keyframes m3EnterBack {from{opacity:0;transform:translateX(-56px)}to{opacity:1;transform:translateX(0)}}
+@keyframes m3ExitBack  {from{opacity:1;transform:translateX(0)}    to{opacity:0;transform:translateX(52px)}}
+/* M3 Fade-through — simultaneous crossfade, enter lifts up */
+@keyframes m3FadeIn  {from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)}}
+@keyframes m3FadeOut {from{opacity:1} to{opacity:0}}
+/* Sheet — physical spring entry */
+@keyframes m3SheetEnter{0%{transform:translateY(100%)}75%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+@keyframes m3SheetExit {from{transform:translateY(0)}to{transform:translateY(100%)}}
 /* Driver profile tab content fade */
-@keyframes dpTabIn{from{opacity:0}to{opacity:1}}
+@keyframes dpTabIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Layout ── */
 .app-shell{
@@ -205,14 +205,14 @@ h1{font-size:38px;font-weight:700;line-height:1.05;
 .screen.active{
   opacity:1;visibility:visible;pointer-events:auto;z-index:2;
 }
-/* M3 animation utility classes */
+/* Animation utility classes — M3 Emphasized easing */
 .screen.m3-exiting{pointer-events:none!important;z-index:1;}
-.screen.m3-enter-fwd{animation:m3EnterFwd 300ms cubic-bezier(0,0,0,1) both;}
-.screen.m3-exit-fwd{animation:m3ExitFwd 300ms cubic-bezier(.3,0,1,1) both;}
-.screen.m3-enter-back{animation:m3EnterBack 300ms cubic-bezier(0,0,0,1) both;}
-.screen.m3-exit-back{animation:m3ExitBack 300ms cubic-bezier(.3,0,1,1) both;}
-.screen.m3-tab-fade-out{animation:m3FadeOut 90ms cubic-bezier(.3,0,1,1) both;}
-.screen.m3-tab-fade-in{animation:m3FadeIn 210ms cubic-bezier(0,0,.2,1) both;}
+.screen.m3-enter-fwd  {animation:m3EnterFwd  400ms cubic-bezier(0.05,0.7,0.1,1.0) both;}
+.screen.m3-exit-fwd   {animation:m3ExitFwd   200ms cubic-bezier(0.3,0,0.8,0.15)   both;}
+.screen.m3-enter-back {animation:m3EnterBack 340ms cubic-bezier(0.05,0.7,0.1,1.0) both;}
+.screen.m3-exit-back  {animation:m3ExitBack  200ms cubic-bezier(0.3,0,0.8,0.15)   both;}
+.screen.m3-tab-fade-out{animation:m3FadeOut  160ms cubic-bezier(0.3,0,0.8,0.15)   both;}
+.screen.m3-tab-fade-in {animation:m3FadeIn   200ms cubic-bezier(0.05,0.7,0.1,1.0) both;}
 
 /* ── Status bar ── */
 .sbar{
@@ -632,7 +632,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .drv-info{flex:1;}
 .drv-name{font-size:15px;font-weight:600;color:#1d1e25;letter-spacing:-.22px;font-family:'Gilroy',sans-serif;line-height:22px;}
 .drv-meta{font-size:12px;font-weight:500;color:#575757;font-family:'Gilroy',sans-serif;}
-.scan-qr-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:240px;height:56px;background:#1d1e25;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap;z-index:20;}
+.scan-qr-btn{position:absolute;bottom:104px;left:50%;transform:translateX(-50%);width:240px;height:56px;background:#1d1e25;border-radius:99px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.18);white-space:nowrap;z-index:20;}
 .scan-qr-btn:hover{background:#2a2b35;}
 .scan-qr-btn:active{transform:translateX(-50%) scale(.97);}
 .scan-qr-btn span{font-size:16px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;}
@@ -678,7 +678,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .vi-btn-wrap{position:absolute;bottom:36px;left:20px;width:335px;}
 /* View Image overlay */
 .vi-overlay{position:absolute;inset:0;z-index:30;display:none;pointer-events:none;}
-.vi-overlay.open{display:block;pointer-events:auto;animation:m3FadeIn 220ms cubic-bezier(0,0,.2,1) both;}
+.vi-overlay.open{display:block;pointer-events:auto;animation:m3FadeIn 220ms cubic-bezier(0.16,1,0.3,1) both;}
 .vi-ov-bg{position:absolute;inset:0;background:#1d1e25;opacity:.92;}
 .vi-ov-sbar{position:absolute;top:0;left:0;width:375px;height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 10px;z-index:3;}
 .vi-ov-sbar-time{font-size:14px;font-weight:500;color:#fff;font-family:'Gilroy',sans-serif;}
@@ -845,7 +845,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .st-drv-info{flex:1;min-width:0;}
 .st-drv-name{font-size:16px;font-weight:600;color:#1d1e25;letter-spacing:-.24px;font-family:'Gilroy',sans-serif;}
 .st-drv-sub{font-size:12px;font-weight:500;color:rgba(0,0,0,.6);letter-spacing:-.06px;font-family:'Gilroy',sans-serif;margin-top:2px;}
-.st-scan-btn{position:absolute;bottom:88px;left:50%;transform:translateX(-50%);white-space:nowrap;height:56px;background:#1d1e25;border-radius:99px;padding:0 28px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:5;font-size:16px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;letter-spacing:-.24px;}
+.st-scan-btn{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);white-space:nowrap;height:56px;background:#1d1e25;border-radius:99px;padding:0 28px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;border:none;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:5;font-size:16px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;letter-spacing:-.24px;}
 .st-scan-btn span{font-size:16px;font-weight:600;color:#fff;font-family:'Gilroy',sans-serif;letter-spacing:-.24px;}
 
 /* Empty state shared */
@@ -1132,7 +1132,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 .al-bg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:44px 20px 28px;}
 .al-bg-ts{position:absolute;inset:0;opacity:.18;pointer-events:none;background:#f7f6fa;}
 .al-overlay{position:absolute;inset:0;background:#1d1e25;opacity:.9;z-index:1;}
-.al-sheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;z-index:2;padding:36px 20px 40px;display:flex;flex-direction:column;align-items:center;gap:16px;animation:m3SheetEnter 300ms cubic-bezier(0,0,.2,1) both;}
+.al-sheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;z-index:2;padding:36px 20px 40px;display:flex;flex-direction:column;align-items:center;gap:16px;animation:m3SheetEnter 480ms cubic-bezier(0.05,0.7,0.1,1.0) both;}
 .al-alarm-wrap{width:100px;height:100px;border-radius:50%;background:#ffeaea;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .al-title{font-size:20px;font-weight:600;color:#1d1e25;letter-spacing:-.3px;font-family:'Gilroy',sans-serif;align-self:flex-start;}
 .al-desc{font-size:14px;font-weight:500;color:#575757;line-height:1.5;letter-spacing:-.14px;font-family:'Gilroy',sans-serif;align-self:flex-start;}
@@ -1164,7 +1164,7 @@ mark.drv-hl{background:#b8f9f1;color:inherit;border-radius:2px;padding:0 1px;}
 /* Receipt Details modal overlay */
 #screen-receipt-details{background:#f7f6fa;overflow:hidden;}
 .rd-overlay{position:absolute;inset:0;background:#1d1e25;opacity:.9;z-index:1;}
-.rd-sheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;z-index:2;padding:28px 20px 40px;display:flex;flex-direction:column;gap:20px;max-height:88%;overflow-y:auto;animation:m3SheetEnter 300ms cubic-bezier(0,0,.2,1) both;}
+.rd-sheet{position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:20px 20px 0 0;z-index:2;padding:28px 20px 40px;display:flex;flex-direction:column;gap:20px;max-height:88%;overflow-y:auto;animation:m3SheetEnter 480ms cubic-bezier(0.05,0.7,0.1,1.0) both;}
 .rd-title{font-size:20px;font-weight:600;color:#1d1e25;letter-spacing:-.3px;font-family:'Gilroy',sans-serif;}
 .rd-photo{width:100%;aspect-ratio:335/240;border-radius:16px;overflow:hidden;flex-shrink:0;}
 .rd-photo img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -3294,58 +3294,45 @@ function _applyNavState(id) {
   if (id === 'qr-scan') { const r=document.getElementById('qr-invalid-ring'); const t=document.getElementById('qr-invalid-txt'); if(r)r.style.display='none'; if(t)t.style.display='none'; }
 }
 
-/* M3 motion: direction='forward'|'back', isTab=true uses fade-through */
 function showScreen(id, direction, isTab) {
   if (id === current) return;
   direction = direction || 'forward';
   isTab = !!isTab;
 
-  const prevId = current;
-  const prevEl = document.getElementById('screen-' + prevId);
+  const prevEl = document.getElementById('screen-' + current);
   const nextEl = document.getElementById('screen-' + id);
   if (!nextEl) return;
 
-  /* Clean up any lingering M3 classes to prevent animation conflicts */
-  const M3CLS = ['m3-exiting','m3-enter-fwd','m3-exit-fwd','m3-enter-back','m3-exit-back','m3-tab-fade-out','m3-tab-fade-in'];
-  document.querySelectorAll('.screen').forEach(s => {
-    M3CLS.forEach(c => s.classList.remove(c));
-    if (!s.classList.contains('active')) { s.style.opacity=''; s.style.transform=''; }
-  });
+  /* Flush any lingering animation classes from rapid taps */
+  const ALL = ['m3-exiting','m3-enter-fwd','m3-exit-fwd','m3-enter-back','m3-exit-back','m3-tab-fade-out','m3-tab-fade-in'];
+  document.querySelectorAll('.screen').forEach(s => ALL.forEach(c => s.classList.remove(c)));
 
   current = id;
   _applyNavState(id);
 
   if (isTab) {
-    /* Fade-through: outgoing fades out, 90ms gap, incoming fades in */
+    /* True crossfade — exit and enter run simultaneously, no gap */
     if (prevEl) {
       prevEl.classList.add('m3-exiting','m3-tab-fade-out');
-      prevEl.addEventListener('animationend', () => {
-        prevEl.classList.remove('active','m3-exiting','m3-tab-fade-out');
-      }, {once:true});
+      setTimeout(() => prevEl.classList.remove('active','m3-exiting','m3-tab-fade-out'), 175);
     }
-    nextEl.style.opacity = '0';
     nextEl.classList.add('active');
-    setTimeout(() => {
-      nextEl.style.opacity = '';
-      nextEl.classList.add('m3-tab-fade-in');
-      nextEl.addEventListener('animationend', () => {
-        nextEl.classList.remove('m3-tab-fade-in');
-      }, {once:true});
-    }, 90);
+    void nextEl.offsetWidth;
+    nextEl.classList.add('m3-tab-fade-in');
+    setTimeout(() => nextEl.classList.remove('m3-tab-fade-in'), 215);
   } else {
-    /* Shared axis horizontal */
+    /* Shared axis: 200ms exit, fwd 400ms enter, back 340ms enter */
     if (prevEl) {
       const exitCls = direction === 'back' ? 'm3-exit-back' : 'm3-exit-fwd';
       prevEl.classList.add('m3-exiting', exitCls);
-      prevEl.addEventListener('animationend', () => {
-        prevEl.classList.remove('active','m3-exiting', exitCls);
-      }, {once:true});
+      setTimeout(() => prevEl.classList.remove('active','m3-exiting', exitCls), 215);
     }
     const enterCls = direction === 'back' ? 'm3-enter-back' : 'm3-enter-fwd';
-    nextEl.classList.add('active', enterCls);
-    nextEl.addEventListener('animationend', () => {
-      nextEl.classList.remove(enterCls);
-    }, {once:true});
+    const enterDur = direction === 'back' ? 355 : 415;
+    nextEl.classList.add('active');
+    void nextEl.offsetWidth; /* force reflow so animation starts from 'from' state */
+    nextEl.classList.add(enterCls);
+    setTimeout(() => nextEl.classList.remove(enterCls), enterDur);
   }
 }
 
@@ -3587,7 +3574,7 @@ function dpSwitchTab(tab) {
   showEl.style.display = '';
   showEl.style.animation = 'none';
   void showEl.offsetWidth;
-  showEl.style.animation = 'dpTabIn 150ms cubic-bezier(0,0,0.2,1) both';
+  showEl.style.animation = 'dpTabIn 220ms cubic-bezier(0.16,1,0.3,1) both';
   showEl.addEventListener('animationend', () => { showEl.style.animation = ''; }, {once:true});
   document.getElementById('dp-tab-balance').classList.toggle('active', tab === 'balance');
   document.getElementById('dp-tab-history').classList.toggle('active', tab === 'history');
